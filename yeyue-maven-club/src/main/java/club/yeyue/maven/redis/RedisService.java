@@ -16,15 +16,15 @@ public class RedisService {
     @Resource
     RedisTemplate<String, String> redisTemplate;
 
-    public void setString(String key, String value, Long expire, TimeUnit timeUnit) {
+    public void set(String key, String value, Long expire, TimeUnit timeUnit) {
         redisTemplate.opsForValue().set(key, value, expire, timeUnit);
     }
 
-    public String getString(String key) {
+    public String get(String key) {
         return redisTemplate.opsForValue().get(key);
     }
 
-    public void delete(String key) {
+    public void del(String key) {
         redisTemplate.delete(key);
     }
 }
