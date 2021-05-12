@@ -1,10 +1,14 @@
 package club.yeyue.maven;
 
+import club.yeyue.maven.redis.jedis.JedisService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.CommandLineRunner;
-import org.springframework.boot.WebApplicationType;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
+import org.springframework.context.ApplicationContext;
+
+import javax.annotation.Resource;
+import java.util.concurrent.TimeUnit;
 
 /**
  * 启动类
@@ -16,9 +20,12 @@ import org.springframework.boot.builder.SpringApplicationBuilder;
 @SpringBootApplication
 public class YeyueMavenClubApplication implements CommandLineRunner {
 
+    @Resource
+    JedisService jedisService;
+
     public static void main(String[] args) throws InterruptedException {
-        new SpringApplicationBuilder(YeyueMavenClubApplication.class)
-                .web(WebApplicationType.NONE).build().run(args);
+        ApplicationContext context = new SpringApplicationBuilder(YeyueMavenClubApplication.class)
+                .build().run(args);
         synchronized (YeyueMavenClubApplication.class) {
             YeyueMavenClubApplication.class.wait();
         }
