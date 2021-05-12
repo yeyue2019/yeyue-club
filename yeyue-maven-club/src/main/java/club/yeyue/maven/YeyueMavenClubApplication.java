@@ -1,6 +1,6 @@
 package club.yeyue.maven;
 
-import club.yeyue.maven.redis.jedis.JedisService;
+import club.yeyue.maven.redis.RedisService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -8,7 +8,6 @@ import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.context.ApplicationContext;
 
 import javax.annotation.Resource;
-import java.util.concurrent.TimeUnit;
 
 /**
  * 启动类
@@ -21,7 +20,7 @@ import java.util.concurrent.TimeUnit;
 public class YeyueMavenClubApplication implements CommandLineRunner {
 
     @Resource
-    JedisService jedisService;
+    RedisService redisService;
 
     public static void main(String[] args) throws InterruptedException {
         ApplicationContext context = new SpringApplicationBuilder(YeyueMavenClubApplication.class)
@@ -34,5 +33,6 @@ public class YeyueMavenClubApplication implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
         log.info("系统已经跑起来了冲冲冲---->>>>>");
+        log.info("打印值:{}", redisService.getString("aaass"));
     }
 }

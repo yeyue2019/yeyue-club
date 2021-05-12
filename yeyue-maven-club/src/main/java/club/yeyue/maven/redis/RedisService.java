@@ -1,4 +1,4 @@
-package club.yeyue.maven.redis.jedis;
+package club.yeyue.maven.redis;
 
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Component;
@@ -11,7 +11,7 @@ import java.util.concurrent.TimeUnit;
  * @date 2021-05-08 22:50
  */
 @Component
-public class JedisService {
+public class RedisService {
 
     @Resource
     RedisTemplate<String, String> redisTemplate;
