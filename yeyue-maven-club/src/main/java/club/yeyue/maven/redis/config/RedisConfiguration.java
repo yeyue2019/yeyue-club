@@ -1,14 +1,19 @@
 package club.yeyue.maven.redis.config;
 
 import club.yeyue.maven.redis.jedis.JedisService;
+import club.yeyue.maven.redis.lettuce.LettuceService;
+import club.yeyue.maven.redis.redisson.RedissonService;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.fasterxml.jackson.annotation.PropertyAccessor;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.jsontype.impl.LaissezFaireSubTypeValidator;
+import org.redisson.api.RedissonClient;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.data.redis.connection.jedis.JedisConnectionFactory;
 import org.springframework.data.redis.core.RedisTemplate;
@@ -25,8 +30,8 @@ import org.springframework.data.redis.serializer.StringRedisSerializer;
 @Configuration
 public class RedisConfiguration {
 
-    @Bean
-    public RedisTemplate<String, String> redisTemplate(RedisConnectionFactory factory) {
+    @Bean(name = "redisTemplate")
+    public RedisTemplate<String, ?> redisTemplate(RedisConnectionFactory factory) {
         Jackson2JsonRedisSerializer<?> jackson2JsonRedisSerializer = new Jackson2JsonRedisSerializer<>(Object.class);
         ObjectMapper mapper = new ObjectMapper();
         mapper.setVisibility(PropertyAccessor.ALL, JsonAutoDetect.Visibility.ANY);
@@ -43,11 +48,27 @@ public class RedisConfiguration {
         return redisTemplate;
     }
 
-
     @Bean
-    @ConditionalOnProperty(name = "spring.redis.use-client", havingValue = "jedis", matchIfMissing = true)
+    @ConditionalOnProperty(name = "spring.redis.client-type", havingValue = "jedis", matchIfMissing = true)
     public JedisService jedisService(RedisConnectionFactory factory) {
         return new JedisService((JedisConnectionFactory) factory);
+    }
+
+    @Bean
+    @ConditionalOnProperty(name = "spring.redis.client-type", havingValue = "lettuce", matchIfMissing = true)
+    public LettuceService lettuceService(RedisConnectionFactory factory) {
+        return new LettuceService();
+    }
+
+    /**
+     * 总结:只要引入这个bean就会实例化redisson
+     */
+    @Bean
+    @Lazy
+    @ConditionalOnBean(RedissonClient.class)
+    @ConditionalOnProperty(name = "spring.redis.client-type", havingValue = "", matchIfMissing = true)
+    public RedissonService redissonService(RedissonClient redissonClient) {
+        return new RedissonService(redissonClient);
     }
 
 }

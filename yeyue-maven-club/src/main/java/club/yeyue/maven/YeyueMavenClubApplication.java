@@ -2,8 +2,9 @@ package club.yeyue.maven;
 
 import club.yeyue.maven.redis.RedisService;
 import club.yeyue.maven.redis.jedis.JedisService;
+import club.yeyue.maven.util.SpringBeanUtils;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.redisson.spring.starter.RedissonAutoConfiguration;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
@@ -24,8 +25,6 @@ public class YeyueMavenClubApplication implements CommandLineRunner {
 
     @Resource
     RedisService redisService;
-    @Resource
-    JedisService jedisService;
 
     public static void main(String[] args) throws InterruptedException {
         ApplicationContext context = new SpringApplicationBuilder(YeyueMavenClubApplication.class)
@@ -38,11 +37,23 @@ public class YeyueMavenClubApplication implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
         log.info("系统已经跑起来了冲冲冲---->>>>>");
-        jedisDemoTest();
+//        jedisDemoTest();
+//        lettuceDemoTest();
+        redissonDemoTest();
     }
 
     public void jedisDemoTest() {
         redisService.set("jedisTest", System.currentTimeMillis() + "", 1L, TimeUnit.DAYS);
-        log.info("jedisService获取到的值:{}", jedisService.get("jedisTest"));
+        log.info("jedisService获取到的值:{}", SpringBeanUtils.getBean(JedisService.class).get("jedisTest"));
+    }
+
+    public void lettuceDemoTest() {
+        redisService.set("lettuceTest", System.currentTimeMillis() + "", 1L, TimeUnit.DAYS);
+        log.info("redisService获取到的值:{}", redisService.get("lettuceTest"));
+    }
+
+    public void redissonDemoTest() {
+        redisService.set("redissonTest", System.currentTimeMillis() + "", 1L, TimeUnit.DAYS);
+        log.info("redissonService获取到的值:{}", SpringBeanUtils.getBean(RedisService.class).get("redissonTest"));
     }
 }
