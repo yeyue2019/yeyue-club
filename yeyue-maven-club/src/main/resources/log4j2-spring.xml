@@ -14,7 +14,7 @@
     <Appenders>
         <Console name="Console" target="SYSTEM_OUT">
             <PatternLayout pattern="${LOG_PATTERN}"/>
-            <ThresholdFilter level="DEBUG" onMatch="ACCEPT" onMismatch="DENY"/>
+            <ThresholdFilter level="INFO" onMatch="ACCEPT" onMismatch="DENY"/>
         </Console>
         <RollingFile name="RollingFile" fileName="${FILE_PATH}/${FILE_NAME}.log"
                      filePattern="${FILE_PATH}/$${date:yyyy-MM-dd}/${FILE_NAME}_%d{yyyy-MM-dd}_%i.log.gz">

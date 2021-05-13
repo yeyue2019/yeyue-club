@@ -39,7 +39,7 @@ public class YeyueMavenClubApplication implements CommandLineRunner {
         log.info("系统已经跑起来了冲冲冲---->>>>>");
 //        jedisDemoTest();
 //        lettuceDemoTest();
-        redissonDemoTest();
+//        redissonDemoTest();
     }
 
     public void jedisDemoTest() {
