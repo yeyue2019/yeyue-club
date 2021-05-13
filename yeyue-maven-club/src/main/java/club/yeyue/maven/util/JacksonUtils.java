@@ -134,32 +134,32 @@ public class JacksonUtils {
     }
 
 
-    public static void main(String[] args) {
-        ClubLongEntity entity = new ClubLongEntity();
-        entity.setId(100L);
-        entity.setCreated(LocalDateTime.now());
-        entity.setClubName("夜月");
-        ClubLongEntity entity2 = new ClubLongEntity();
-        entity2.setId(120L);
-        entity2.setUpdated(LocalDateTime.now());
-        entity2.setClubName("夜月v2");
-        // 测试对象转JSON
-        System.out.println(toJsonString(""));
-        String json = toJsonString(entity);
-        System.out.println(json);
-        List<ClubLongEntity> entityList = Collections.singletonList(entity2);
-        String json2 = toJsonString(entityList);
-        System.out.println(json2);
-        Map<String, List<ClubLongEntity>> map = Collections.singletonMap("ces", entityList);
-        String json3 = toJsonString(map);
-        System.out.println(json3);
-        ClubLongEntity entity4 = toObject(json, ClubLongEntity.class);
-        System.out.println(entity4);
-        List<ClubLongEntity> entityList2 = toObject(json2, new TypeReference<List<ClubLongEntity>>() {
-        });
-        System.out.println(entityList2);
-        System.out.println(toObject("[]", new TypeReference<List<ClubLongEntity>>() {
-        }));
-        System.out.println(toObject("{}", ClubLongEntity.class));
-    }
+//    public static void main(String[] args) {
+//        ClubLongEntity entity = new ClubLongEntity();
+//        entity.setId(100L);
+//        entity.setCreated(LocalDateTime.now());
+//        entity.setClubName("夜月");
+//        ClubLongEntity entity2 = new ClubLongEntity();
+//        entity2.setId(120L);
+//        entity2.setUpdated(LocalDateTime.now());
+//        entity2.setClubName("夜月v2");
+//        // 测试对象转JSON
+//        System.out.println(toJsonString(""));
+//        String json = toJsonString(entity);
+//        System.out.println(json);
+//        List<ClubLongEntity> entityList = Collections.singletonList(entity2);
+//        String json2 = toJsonString(entityList);
+//        System.out.println(json2);
+//        Map<String, List<ClubLongEntity>> map = Collections.singletonMap("ces", entityList);
+//        String json3 = toJsonString(map);
+//        System.out.println(json3);
+//        ClubLongEntity entity4 = toObject(json, ClubLongEntity.class);
+//        System.out.println(entity4);
+//        List<ClubLongEntity> entityList2 = toObject(json2, new TypeReference<List<ClubLongEntity>>() {
+//        });
+//        System.out.println(entityList2);
+//        System.out.println(toObject("[]", new TypeReference<List<ClubLongEntity>>() {
+//        }));
+//        System.out.println(toObject("{}", ClubLongEntity.class));
+//    }
 }

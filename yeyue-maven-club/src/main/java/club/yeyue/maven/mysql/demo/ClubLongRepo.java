@@ -23,5 +23,5 @@ public interface ClubLongRepo extends JpaRepository<ClubLongEntity, Long> {
     @Modifying
     @Transactional
     @Query(value = "update ClubLongEntity e set e.clubName =?2 where e.id = ?1 and e.deleted = false")
-    long update(Long id, String clubName);
+    int update(Long id, String clubName);
 }

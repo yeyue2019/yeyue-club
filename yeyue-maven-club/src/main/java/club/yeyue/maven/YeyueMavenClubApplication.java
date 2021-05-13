@@ -4,6 +4,7 @@ import club.yeyue.maven.mysql.demo.ClubLongEntity;
 import club.yeyue.maven.mysql.demo.ClubLongRepo;
 import club.yeyue.maven.redis.RedisService;
 import club.yeyue.maven.redis.jedis.JedisService;
+import club.yeyue.maven.util.JacksonUtils;
 import club.yeyue.maven.util.SpringBeanUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.CommandLineRunner;
@@ -15,6 +16,7 @@ import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 import javax.annotation.Resource;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -47,7 +49,7 @@ public class YeyueMavenClubApplication implements CommandLineRunner {
 //        jedisDemoTest();
 //        lettuceDemoTest();
 //        redissonDemoTest();
-        jpaSaveTest();
+//        jpaSaveTest();
     }
 
     public void jedisDemoTest() {
@@ -70,5 +72,10 @@ public class YeyueMavenClubApplication implements CommandLineRunner {
         ClubLongEntity entity = new ClubLongEntity();
         entity.setClubName(System.currentTimeMillis() + "");
         entity = repo.save(entity);
+        log.info("获取对象:{}", JacksonUtils.toJsonString(entity));
+        int count = repo.update(entity.getId(), "夜月");
+        log.info("更新数据数量:{}", count);
+        List<ClubLongEntity> list = repo.findByName("夜月");
+        log.info("获取到的对象集合:{}", JacksonUtils.toJsonString(list));
     }
 }
