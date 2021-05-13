@@ -1,14 +1,18 @@
 package club.yeyue.maven;
 
+import club.yeyue.maven.mysql.demo.ClubLongEntity;
+import club.yeyue.maven.mysql.demo.ClubLongRepo;
 import club.yeyue.maven.redis.RedisService;
 import club.yeyue.maven.redis.jedis.JedisService;
 import club.yeyue.maven.util.SpringBeanUtils;
 import lombok.extern.slf4j.Slf4j;
-import org.redisson.spring.starter.RedissonAutoConfiguration;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.context.ApplicationContext;
+import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 import javax.annotation.Resource;
 import java.util.concurrent.TimeUnit;
@@ -21,6 +25,9 @@ import java.util.concurrent.TimeUnit;
  */
 @Slf4j
 @SpringBootApplication
+@EnableJpaAuditing
+@EntityScan(basePackages = "club.yeyue.maven.mysql.demo")
+@EnableJpaRepositories(basePackages = "club.yeyue.maven.mysql.demo")
 public class YeyueMavenClubApplication implements CommandLineRunner {
 
     @Resource
@@ -40,6 +47,7 @@ public class YeyueMavenClubApplication implements CommandLineRunner {
 //        jedisDemoTest();
 //        lettuceDemoTest();
 //        redissonDemoTest();
+        jpaSaveTest();
     }
 
     public void jedisDemoTest() {
@@ -55,5 +63,12 @@ public class YeyueMavenClubApplication implements CommandLineRunner {
     public void redissonDemoTest() {
         redisService.set("redissonTest", System.currentTimeMillis() + "", 1L, TimeUnit.DAYS);
         log.info("redissonService获取到的值:{}", SpringBeanUtils.getBean(RedisService.class).get("redissonTest"));
+    }
+
+    public void jpaSaveTest() {
+        ClubLongRepo repo = SpringBeanUtils.getBean(ClubLongRepo.class);
+        ClubLongEntity entity = new ClubLongEntity();
+        entity.setClubName(System.currentTimeMillis() + "");
+        entity = repo.save(entity);
     }
 }
