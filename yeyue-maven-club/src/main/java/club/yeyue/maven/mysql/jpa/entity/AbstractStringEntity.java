@@ -1,10 +1,13 @@
-package club.yeyue.maven.mysql.entity;
+package club.yeyue.maven.mysql.jpa.entity;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import org.hibernate.annotations.GenericGenerator;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.MappedSuperclass;
 
 /**
  * @author fred

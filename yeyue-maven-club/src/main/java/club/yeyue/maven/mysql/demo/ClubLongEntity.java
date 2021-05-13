@@ -1,6 +1,6 @@
 package club.yeyue.maven.mysql.demo;
 
-import club.yeyue.maven.mysql.entity.AbstractLongEntity;
+import club.yeyue.maven.mysql.jpa.entity.AbstractLongEntity;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -22,14 +22,4 @@ public class ClubLongEntity extends AbstractLongEntity {
     @Column(length = 32)
     private String clubName;
 
-    @Override
-    public String toString() {
-        return "ClubLongEntity{" +
-                "clubName='" + clubName + '\'' +
-                ", created=" + created +
-                ", updated=" + updated +
-                ", deleted=" + deleted +
-                ", id=" + id +
-                '}';
-    }
 }

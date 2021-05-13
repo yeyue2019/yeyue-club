@@ -1,4 +1,4 @@
-package club.yeyue.maven.mysql.entity;
+package club.yeyue.maven.mysql.jpa.entity;
 
 import lombok.Data;
 import org.springframework.data.annotation.CreatedDate;
