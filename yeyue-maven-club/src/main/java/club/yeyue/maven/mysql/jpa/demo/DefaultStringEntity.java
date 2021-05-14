@@ -1,4 +1,4 @@
-package club.yeyue.maven.mysql.demo;
+package club.yeyue.maven.mysql.jpa.demo;
 
 import club.yeyue.maven.mysql.jpa.entity.AbstractDefaultStringEntity;
 import lombok.Data;

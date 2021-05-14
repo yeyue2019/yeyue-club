@@ -1,6 +1,6 @@
 package club.yeyue.maven;
 
-import club.yeyue.maven.mysql.demo.*;
+import club.yeyue.maven.mysql.jpa.demo.*;
 import club.yeyue.maven.mysql.jpa.repo.JpaRepoImpl;
 import club.yeyue.maven.redis.RedisService;
 import club.yeyue.maven.redis.jedis.JedisService;
@@ -28,8 +28,8 @@ import java.util.concurrent.TimeUnit;
 @Slf4j
 @SpringBootApplication
 @EnableJpaAuditing
-@EntityScan(basePackages = "club.yeyue.maven.mysql.demo")
-@EnableJpaRepositories(basePackages = "club.yeyue.maven.mysql.demo", repositoryBaseClass = JpaRepoImpl.class)
+@EntityScan(basePackages = "club.yeyue.maven.mysql.jpa.demo")
+@EnableJpaRepositories(basePackages = "club.yeyue.maven.mysql.jpa.demo", repositoryBaseClass = JpaRepoImpl.class)
 public class YeyueMavenClubApplication implements CommandLineRunner {
 
     public static void main(String[] args) throws InterruptedException {

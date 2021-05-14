@@ -1,6 +1,6 @@
-package club.yeyue.maven.mysql.demo;
+package club.yeyue.maven.mysql.jpa.demo;
 
-import club.yeyue.maven.mysql.jpa.entity.AbstractDefaultLongEntity;
+import club.yeyue.maven.mysql.jpa.entity.AbstractSequenceLongEntity;
 import lombok.Data;
 
 import javax.persistence.Column;
@@ -13,8 +13,8 @@ import javax.persistence.Table;
  */
 @Data
 @Entity
-@Table(name = "test_default_long_table")
-public class DefaultLongEntity extends AbstractDefaultLongEntity {
+@Table(name = "test_sequence_long_table")
+public class SequenceLongEntity extends AbstractSequenceLongEntity {
     private static final long serialVersionUID = -4502883321534234336L;
 
     @Column(length = 32)
