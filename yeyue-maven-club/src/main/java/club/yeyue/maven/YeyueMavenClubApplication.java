@@ -49,7 +49,7 @@ public class YeyueMavenClubApplication implements CommandLineRunner {
 //        jedisDemoTest();
 //        lettuceDemoTest();
 //        redissonDemoTest();
-//        jpaSaveTest();
+        jpaSaveTest();
     }
 
     public void jedisDemoTest() {
@@ -77,5 +77,8 @@ public class YeyueMavenClubApplication implements CommandLineRunner {
         log.info("更新数据数量:{}", count);
         List<ClubLongEntity> list = repo.findByName("夜月");
         log.info("获取到的对象集合:{}", JacksonUtils.toJsonString(list));
+        ClubLongEntity entity2 = repo.findById(3L).get();
+        entity2.setClubName("憨憨");
+        repo.save(entity2);
     }
 }
