@@ -1,6 +1,5 @@
 package club.yeyue.maven.util;
 
-import club.yeyue.maven.mysql.demo.ClubLongEntity;
 import com.alibaba.druid.util.StringUtils;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -22,9 +21,6 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
-import java.util.Collections;
-import java.util.List;
-import java.util.Map;
 
 /**
  * Jackson json工具类

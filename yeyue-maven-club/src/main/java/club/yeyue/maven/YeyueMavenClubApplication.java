@@ -2,6 +2,8 @@ package club.yeyue.maven;
 
 import club.yeyue.maven.mysql.demo.ClubLongEntity;
 import club.yeyue.maven.mysql.demo.ClubLongRepo;
+import club.yeyue.maven.mysql.demo.ClubStringEntity;
+import club.yeyue.maven.mysql.demo.ClubStringRepo;
 import club.yeyue.maven.redis.RedisService;
 import club.yeyue.maven.redis.jedis.JedisService;
 import club.yeyue.maven.util.JacksonUtils;
@@ -49,7 +51,8 @@ public class YeyueMavenClubApplication implements CommandLineRunner {
 //        jedisDemoTest();
 //        lettuceDemoTest();
 //        redissonDemoTest();
-        jpaSaveTest();
+//        jpaSaveTest();
+        jpaSave2Test();
     }
 
     public void jedisDemoTest() {
@@ -78,6 +81,21 @@ public class YeyueMavenClubApplication implements CommandLineRunner {
         List<ClubLongEntity> list = repo.findByName("夜月");
         log.info("获取到的对象集合:{}", JacksonUtils.toJsonString(list));
         ClubLongEntity entity2 = repo.findById(3L).get();
+        entity2.setClubName("憨憨");
+        repo.save(entity2);
+    }
+
+    public void jpaSave2Test() {
+        ClubStringRepo repo = SpringBeanUtils.getBean(ClubStringRepo.class);
+        ClubStringEntity entity = new ClubStringEntity();
+        entity.setClubName(System.currentTimeMillis() + "");
+        entity = repo.save(entity);
+        log.info("获取对象:{}", JacksonUtils.toJsonString(entity));
+        int count = repo.update(entity.getId(), "夜月");
+        log.info("更新数据数量:{}", count);
+        List<ClubStringEntity> list = repo.findByName("夜月");
+        log.info("获取到的对象集合:{}", JacksonUtils.toJsonString(list));
+        ClubStringEntity entity2 = repo.findById(entity.getId()).get();
         entity2.setClubName("憨憨");
         repo.save(entity2);
     }
