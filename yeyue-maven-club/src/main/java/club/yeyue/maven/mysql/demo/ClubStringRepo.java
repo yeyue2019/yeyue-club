@@ -13,16 +13,16 @@ import java.util.List;
  * @author fred
  * @date 2021-05-14 09:31
  */
-public interface ClubStringRepo extends JpaRepository<ClubStringEntity, String>, JpaSpecificationExecutor<ClubStringEntity> {
+public interface ClubStringRepo extends JpaRepository<ClubDefaultStringEntity, String>, JpaSpecificationExecutor<ClubDefaultStringEntity> {
 
-    @Query(value = "select e from ClubStringEntity e where e.clubName = :clubName and e.deleted = false")
-    List<ClubStringEntity> findByName(@Param("clubName") String clubName);
+    @Query(value = "select e from ClubDefaultStringEntity e where e.clubName = :clubName and e.deleted = false")
+    List<ClubDefaultStringEntity> findByName(@Param("clubName") String clubName);
 
-    @Query(value = "select e from ClubStringEntity e where e.clubName = ?1 and e.deleted = false")
-    List<ClubStringEntity> findByName2(String clubName);
+    @Query(value = "select e from ClubDefaultStringEntity e where e.clubName = ?1 and e.deleted = false")
+    List<ClubDefaultStringEntity> findByName2(String clubName);
 
     @Modifying
     @Transactional
-    @Query(value = "update ClubStringEntity e set e.clubName =?2 where e.id = ?1 and e.deleted = false")
+    @Query(value = "update ClubDefaultStringEntity e set e.clubName =?2 where e.id = ?1 and e.deleted = false")
     int update(String id, String clubName);
 }

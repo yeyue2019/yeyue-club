@@ -8,6 +8,7 @@ class YeyueMavenClubApplicationTests {
 
     @Test
     void contextLoads() {
+        System.out.println();
     }
 
 }

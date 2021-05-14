@@ -16,7 +16,7 @@ import javax.persistence.MappedSuperclass;
 @EqualsAndHashCode(callSuper = true)
 @Data
 @MappedSuperclass
-public abstract class AbstractStringEntity extends AbstractEntity {
+public abstract class AbstractDefaultStringEntity extends AbstractEntity {
     private static final long serialVersionUID = -7434425715209034000L;
 
     @Id

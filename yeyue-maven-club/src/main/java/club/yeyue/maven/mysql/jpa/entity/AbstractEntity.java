@@ -12,6 +12,8 @@ import java.io.Serializable;
 import java.time.LocalDateTime;
 
 /**
+ * 数据库实体对象超类
+ *
  * @author fred
  * @date 2021-05-13 16:14
  */

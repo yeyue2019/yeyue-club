@@ -1,8 +1,8 @@
 package club.yeyue.maven;
 
-import club.yeyue.maven.mysql.demo.ClubLongEntity;
+import club.yeyue.maven.mysql.demo.ClubDefaultLongEntity;
+import club.yeyue.maven.mysql.demo.ClubDefaultStringEntity;
 import club.yeyue.maven.mysql.demo.ClubLongRepo;
-import club.yeyue.maven.mysql.demo.ClubStringEntity;
 import club.yeyue.maven.mysql.demo.ClubStringRepo;
 import club.yeyue.maven.redis.RedisService;
 import club.yeyue.maven.redis.jedis.JedisService;
@@ -52,7 +52,7 @@ public class YeyueMavenClubApplication implements CommandLineRunner {
 //        lettuceDemoTest();
 //        redissonDemoTest();
 //        jpaSaveTest();
-        jpaSave2Test();
+//        jpaSave2Test();
     }
 
     public void jedisDemoTest() {
@@ -72,30 +72,30 @@ public class YeyueMavenClubApplication implements CommandLineRunner {
 
     public void jpaSaveTest() {
         ClubLongRepo repo = SpringBeanUtils.getBean(ClubLongRepo.class);
-        ClubLongEntity entity = new ClubLongEntity();
+        ClubDefaultLongEntity entity = new ClubDefaultLongEntity();
         entity.setClubName(System.currentTimeMillis() + "");
         entity = repo.save(entity);
         log.info("获取对象:{}", JacksonUtils.toJsonString(entity));
         int count = repo.update(entity.getId(), "夜月");
         log.info("更新数据数量:{}", count);
-        List<ClubLongEntity> list = repo.findByName("夜月");
+        List<ClubDefaultLongEntity> list = repo.findByName("夜月");
         log.info("获取到的对象集合:{}", JacksonUtils.toJsonString(list));
-        ClubLongEntity entity2 = repo.findById(3L).get();
+        ClubDefaultLongEntity entity2 = repo.findById(3L).get();
         entity2.setClubName("憨憨");
         repo.save(entity2);
     }
 
     public void jpaSave2Test() {
         ClubStringRepo repo = SpringBeanUtils.getBean(ClubStringRepo.class);
-        ClubStringEntity entity = new ClubStringEntity();
+        ClubDefaultStringEntity entity = new ClubDefaultStringEntity();
         entity.setClubName(System.currentTimeMillis() + "");
         entity = repo.save(entity);
         log.info("获取对象:{}", JacksonUtils.toJsonString(entity));
         int count = repo.update(entity.getId(), "夜月");
         log.info("更新数据数量:{}", count);
-        List<ClubStringEntity> list = repo.findByName("夜月");
+        List<ClubDefaultStringEntity> list = repo.findByName("夜月");
         log.info("获取到的对象集合:{}", JacksonUtils.toJsonString(list));
-        ClubStringEntity entity2 = repo.findById(entity.getId()).get();
+        ClubDefaultStringEntity entity2 = repo.findById(entity.getId()).get();
         entity2.setClubName("憨憨");
         repo.save(entity2);
     }

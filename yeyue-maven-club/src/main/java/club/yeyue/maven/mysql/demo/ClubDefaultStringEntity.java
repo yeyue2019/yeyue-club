@@ -1,6 +1,6 @@
 package club.yeyue.maven.mysql.demo;
 
-import club.yeyue.maven.mysql.jpa.entity.AbstractStringEntity;
+import club.yeyue.maven.mysql.jpa.entity.AbstractDefaultStringEntity;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -16,7 +16,7 @@ import javax.persistence.Table;
 @Data
 @Entity
 @Table(name = "club_string_entity")
-public class ClubStringEntity extends AbstractStringEntity {
+public class ClubDefaultStringEntity extends AbstractDefaultStringEntity {
     private static final long serialVersionUID = -8539673865364925696L;
 
     @Column(length = 32)
