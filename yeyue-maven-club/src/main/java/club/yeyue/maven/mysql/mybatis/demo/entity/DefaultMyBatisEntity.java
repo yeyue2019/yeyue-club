@@ -1,5 +1,6 @@
 package club.yeyue.maven.mysql.mybatis.demo.entity;
 
+import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
 
 import java.io.Serializable;
@@ -10,12 +11,15 @@ import java.time.LocalDateTime;
  * @date 2021-05-14 18:14
  */
 @Data
+@TableName("test_default_mybatis_entity")
 public class DefaultMyBatisEntity implements Serializable {
     private static final long serialVersionUID = -8738356095782794102L;
 
-    private Long userId;
+    private Long id;
 
     private String name;
+
+    private Integer age;
 
     private LocalDateTime created;
 

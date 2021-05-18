@@ -2,6 +2,7 @@ package club.yeyue.maven;
 
 import club.yeyue.maven.mysql.jpa.repo.JpaRepoImpl;
 import lombok.extern.slf4j.Slf4j;
+import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
@@ -21,7 +22,7 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 @EnableJpaAuditing
 @EntityScan(basePackages = "club.yeyue.maven.mysql.jpa.demo")
 @EnableJpaRepositories(basePackages = "club.yeyue.maven.mysql.jpa.demo", repositoryBaseClass = JpaRepoImpl.class)
-//@MapperScan(basePackages = "club.yeyue.maven.mybatis.demo.dao")
+@MapperScan(basePackages = "club.yeyue.maven.mysql.mybatis.demo.entity")
 public class YeyueMavenClubApplication implements CommandLineRunner {
 
     public static void main(String[] args) throws InterruptedException {
