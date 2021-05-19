@@ -18,7 +18,8 @@
         <redisson.version>3.15.5</redisson.version>
         <druid.verison>1.2.6</druid.verison>
         <mybatis-plus.version>3.4.2</mybatis-plus.version>
-        <mybatis-plus-generator.version>3.4.1</mybatis-plus-generator.version>
+<!--        <mybatis-plus-generator.version>3.4.1</mybatis-plus-generator.version>-->
+        <mybatis-enhance-actable.version>1.4.9.RELEASE</mybatis-enhance-actable.version>
     </properties>
     <dependencies>
         <dependency>
@@ -78,10 +79,15 @@
             <artifactId>mybatis-plus-boot-starter</artifactId>
             <version>${mybatis-plus.version}</version>
         </dependency>
+<!--        <dependency>-->
+<!--            <groupId>com.baomidou</groupId>-->
+<!--            <artifactId>mybatis-plus-generator</artifactId>-->
+<!--            <version>${mybatis-plus-generator.version}</version>-->
+<!--        </dependency>-->
         <dependency>
-            <groupId>com.baomidou</groupId>
-            <artifactId>mybatis-plus-generator</artifactId>
-            <version>${mybatis-plus-generator.version}</version>
+            <groupId>com.gitee.sunchenbin.mybatis.actable</groupId>
+            <artifactId>mybatis-enhance-actable</artifactId>
+            <version>${mybatis-enhance-actable.version}</version>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>

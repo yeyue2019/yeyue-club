@@ -4,6 +4,8 @@ import club.yeyue.maven.YeyueMavenClubApplication;
 import club.yeyue.maven.model.MyEnum;
 import club.yeyue.maven.mysql.jpa.demo.entity.LongAutoEntity;
 import club.yeyue.maven.mysql.jpa.demo.repo.LongAutoRepo;
+import club.yeyue.maven.mysql.mybatis.demo.entity.LongMyBatisEntity;
+import club.yeyue.maven.mysql.mybatis.demo.mapper.LongMapper;
 import club.yeyue.maven.util.JacksonUtils;
 import club.yeyue.maven.util.SpringBeanUtils;
 import lombok.extern.slf4j.Slf4j;
@@ -92,19 +94,16 @@ public class MysqlTest {
         log.info("使用原生查询工厂查询结果:{}", JacksonUtils.toJsonString(result.getResultList()));
     }
 
-
-//    @Resource
-//    private DefaultMyBatisMapper mapper;
-//
-//    @Test
-//    public void mybatisPlusTest() {
-//        DefaultMyBatisEntity entity = new DefaultMyBatisEntity();
-////        entity.setId(SnowflakeIdUtils.generate());
-//        entity.setName("夜月");
-//        entity.setAge(22);
-//        entity.setCreated(LocalDateTime.now());
-//        entity.setUpdated(LocalDateTime.now());
-//        entity.setDeleted(Boolean.FALSE);
-//        mapper.insert(entity);
-//    }
+    @Test
+    public void mybatisPlusInsertTest() {
+        LongMapper mapper = SpringBeanUtils.getBean(LongMapper.class);
+        LongMyBatisEntity entity = new LongMyBatisEntity();
+        entity.setName("夜月");
+        entity.setAge(22);
+        entity.setMyEnum(MyEnum.A);
+        entity.setCreated(LocalDateTime.now());
+        entity.setUpdated(LocalDateTime.now());
+        entity.setDeleted(Boolean.FALSE);
+        mapper.insert(entity);
+    }
 }
