@@ -1,11 +1,14 @@
 package club.yeyue.maven.redis;
 
+import club.yeyue.maven.YeyueMavenClubApplication;
 import club.yeyue.maven.redis.jedis.JedisService;
 import club.yeyue.maven.util.SpringBeanUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.annotation.Import;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.util.concurrent.TimeUnit;
 
@@ -14,7 +17,8 @@ import java.util.concurrent.TimeUnit;
  * @date 2021-05-17 09:50
  */
 @Slf4j
-@SpringBootTest
+@ExtendWith(SpringExtension.class)
+@SpringBootTest(classes = {YeyueMavenClubApplication.class})
 @Import(SpringBeanUtils.class)
 public class RedisClientTest {
 

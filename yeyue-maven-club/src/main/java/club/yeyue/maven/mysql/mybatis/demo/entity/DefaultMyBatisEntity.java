@@ -1,5 +1,7 @@
 package club.yeyue.maven.mysql.mybatis.demo.entity;
 
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
 
@@ -15,6 +17,7 @@ import java.time.LocalDateTime;
 public class DefaultMyBatisEntity implements Serializable {
     private static final long serialVersionUID = -8738356095782794102L;
 
+    @TableId(type = IdType.ASSIGN_ID)
     private Long id;
 
     private String name;

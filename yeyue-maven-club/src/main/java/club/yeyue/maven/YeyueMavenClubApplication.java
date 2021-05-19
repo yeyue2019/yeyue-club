@@ -20,8 +20,8 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 @Slf4j
 @SpringBootApplication
 @EnableJpaAuditing
-@EntityScan(basePackages = "club.yeyue.maven.mysql.jpa.demo")
-@EnableJpaRepositories(basePackages = "club.yeyue.maven.mysql.jpa.demo", repositoryBaseClass = JpaRepoImpl.class)
+@EntityScan(basePackages = "club.yeyue.maven.mysql.jpa.demo.entity")
+@EnableJpaRepositories(basePackages = "club.yeyue.maven.mysql.jpa.demo.repo", repositoryBaseClass = JpaRepoImpl.class)
 @MapperScan(basePackages = "club.yeyue.maven.mysql.mybatis.demo.entity")
 public class YeyueMavenClubApplication implements CommandLineRunner {
 

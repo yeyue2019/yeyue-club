@@ -1,6 +1,6 @@
 package club.yeyue.maven.mysql.jpa.repo;
 
-import club.yeyue.maven.mysql.jpa.entity.AbstractEntity;
+import club.yeyue.maven.mysql.jpa.entity.AbstractJpaEntity;
 import org.springframework.data.jpa.repository.support.JpaEntityInformation;
 import org.springframework.data.jpa.repository.support.SimpleJpaRepository;
 
@@ -11,7 +11,7 @@ import java.io.Serializable;
  * @author fred
  * @date 2021-05-14 17:26
  */
-public class JpaRepoImpl<T extends AbstractEntity, ID extends Serializable> extends SimpleJpaRepository<T, ID> implements JpaRepo<T, ID> {
+public class JpaRepoImpl<T extends AbstractJpaEntity, ID extends Serializable> extends SimpleJpaRepository<T, ID> implements AbstractJpaRepo<T, ID> {
 
     private final EntityManager entityManager;
 

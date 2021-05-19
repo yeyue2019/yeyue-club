@@ -12,7 +12,7 @@ import java.io.Serializable;
  * @date 2021-05-14 17:19
  */
 @NoRepositoryBean
-public interface JpaRepo<T, ID extends Serializable> extends JpaRepository<T, ID>, JpaSpecificationExecutor<T> {
+public interface AbstractJpaRepo<T, ID extends Serializable> extends JpaRepository<T, ID>, JpaSpecificationExecutor<T> {
 
     /**
      * 获取实体类管理器
