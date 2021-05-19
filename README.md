@@ -5,6 +5,8 @@
 
 主要配置都是通过springboot自动配置启动的
 
+使用log4j2收集系统日志
+
 > 目前集成中间件：
 > redis和redis三大客户端jedis、lettuce、redisson
 > mysql、druid连接池、数据库框架jpa、mybatis-plus
