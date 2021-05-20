@@ -19,20 +19,17 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
  * @date 2021-05-08 15:49
  */
 @Slf4j
-@SpringBootApplication
 @EnableJpaAuditing
 @EntityScan(basePackages = "club.yeyue.maven.mysql.jpa.demo.entity")
 @EnableJpaRepositories(basePackages = "club.yeyue.maven.mysql.jpa.demo.repo", repositoryBaseClass = JpaRepoImpl.class)
-@ComponentScan("com.gitee.sunchenbin.mybatis.actable.manager.*")
+@ComponentScan(value = {"com.gitee.sunchenbin.mybatis.actable.manager.*", "club.yeyue.maven.*"})
 @MapperScan(basePackages = {"club.yeyue.maven.mysql.mybatis.demo.mapper", "com.gitee.sunchenbin.mybatis.actable.dao.*"})
+@SpringBootApplication
 public class YeyueMavenClubApplication implements CommandLineRunner {
 
     public static void main(String[] args) throws InterruptedException {
         ApplicationContext context = new SpringApplicationBuilder(YeyueMavenClubApplication.class)
                 .build().run(args);
-        synchronized (YeyueMavenClubApplication.class) {
-            YeyueMavenClubApplication.class.wait();
-        }
     }
 
     @Override

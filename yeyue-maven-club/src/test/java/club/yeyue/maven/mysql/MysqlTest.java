@@ -8,6 +8,8 @@ import club.yeyue.maven.mysql.mybatis.demo.entity.LongMyBatisEntity;
 import club.yeyue.maven.mysql.mybatis.demo.mapper.LongMapper;
 import club.yeyue.maven.util.JacksonUtils;
 import club.yeyue.maven.util.SpringBeanUtils;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -98,12 +100,62 @@ public class MysqlTest {
     public void mybatisPlusInsertTest() {
         LongMapper mapper = SpringBeanUtils.getBean(LongMapper.class);
         LongMyBatisEntity entity = new LongMyBatisEntity();
-        entity.setName("夜月");
+        entity.setName("憨憨");
         entity.setAge(22);
+        entity.setMyEnum(MyEnum.B);
+        int num = mapper.insert(entity);
+        assert num == 1;
+    }
+
+    @Test
+    public void mybatisPlusUpdateTest() {
+        LongMapper mapper = SpringBeanUtils.getBean(LongMapper.class);
+        LongMyBatisEntity entity = new LongMyBatisEntity();
+        entity.setId(1395249044414017538L);
+        entity.setName("夜月");
+        entity.setAge(12);
         entity.setMyEnum(MyEnum.A);
-        entity.setCreated(LocalDateTime.now());
-        entity.setUpdated(LocalDateTime.now());
-        entity.setDeleted(Boolean.FALSE);
-        mapper.insert(entity);
+        int size = mapper.updateById(entity);
+        assert size == 1;
+    }
+
+    @Test
+    public void mybatisPlusDeleteTest() {
+        LongMapper mapper = SpringBeanUtils.getBean(LongMapper.class);
+        int size = mapper.deleteById(1395249044414017538L);
+        assert size == 1;
+    }
+
+    @Test
+    public void mybatisPlusGetTest() {
+        LongMapper mapper = SpringBeanUtils.getBean(LongMapper.class);
+        LongMyBatisEntity entity = mapper.selectById(1395248539419840513L);
+        log.info("查询结果:{}", JacksonUtils.toJsonString(entity));
+    }
+
+    @Test
+    public void mybatisPlusQueryTest() {
+        LongMapper mapper = SpringBeanUtils.getBean(LongMapper.class);
+        QueryWrapper<LongMyBatisEntity> wrapper = new QueryWrapper<>();
+        wrapper.eq("name", "憨憨");
+        LongMyBatisEntity entity = mapper.selectOne(wrapper);
+        log.info("查询结果:{}", JacksonUtils.toJsonString(entity));
+    }
+
+    @Test
+    public void mybatisPlusListTest() {
+        LongMapper mapper = SpringBeanUtils.getBean(LongMapper.class);
+        List<LongMyBatisEntity> entity = mapper.myQuery("憨憨");
+        log.info("查询结果:{}", JacksonUtils.toJsonString(entity));
+    }
+
+    @Test
+    public void mybatisPlusPageTest() {
+        IPage<LongMyBatisEntity> page = new com.baomidou.mybatisplus.extension.plugins.pagination.Page<>(1, 10);
+        LongMapper mapper = SpringBeanUtils.getBean(LongMapper.class);
+        page = mapper.selectPage(page, new QueryWrapper<>());
+        log.info("查询结果:{}", JacksonUtils.toJsonString(page));
+        page = mapper.pageQuery(page);
+        log.info("查询结果:{}", JacksonUtils.toJsonString(page));
     }
 }

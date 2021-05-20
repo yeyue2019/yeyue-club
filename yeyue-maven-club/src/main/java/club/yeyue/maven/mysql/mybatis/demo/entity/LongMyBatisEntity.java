@@ -1,6 +1,7 @@
 package club.yeyue.maven.mysql.mybatis.demo.entity;
 
 import club.yeyue.maven.model.MyEnum;
+import club.yeyue.maven.mysql.mybatis.entity.AbstractMybatisEntity;
 import com.baomidou.mybatisplus.annotation.EnumValue;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
@@ -10,9 +11,6 @@ import com.gitee.sunchenbin.mybatis.actable.annotation.Table;
 import com.gitee.sunchenbin.mybatis.actable.constants.MySqlTypeConstant;
 import lombok.Data;
 
-import java.io.Serializable;
-import java.time.LocalDateTime;
-
 /**
  * @author fred
  * @date 2021-05-14 18:14
@@ -20,7 +18,7 @@ import java.time.LocalDateTime;
 @Data
 @Table(name = "mybatis_long_entity")
 @TableName("mybatis_long_entity")
-public class LongMyBatisEntity implements Serializable {
+public class LongMyBatisEntity extends AbstractMybatisEntity {
     private static final long serialVersionUID = -8738356095782794102L;
 
     @TableId(type = IdType.ASSIGN_ID)
@@ -37,12 +35,4 @@ public class LongMyBatisEntity implements Serializable {
     @Column(type = MySqlTypeConstant.VARCHAR, length = 12)
     private MyEnum myEnum;
 
-    @Column
-    private LocalDateTime created;
-
-    @Column
-    private LocalDateTime updated;
-
-    @Column(defaultValue = "false")
-    private Boolean deleted;
 }
