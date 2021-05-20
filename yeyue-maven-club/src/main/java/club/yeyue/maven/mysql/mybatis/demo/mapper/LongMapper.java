@@ -9,6 +9,8 @@ import org.apache.ibatis.annotations.Select;
 import java.util.List;
 
 /**
+ * 自定义实体mapper
+ *
  * @author fred
  * @date 2021-05-14 18:10
  */

@@ -30,6 +30,7 @@ import org.springframework.data.redis.serializer.StringRedisSerializer;
 @Configuration
 public class RedisConfiguration {
 
+    // 根据工厂类型加载redisTemplate
     @Bean(name = "redisTemplate")
     public RedisTemplate<String, ?> redisTemplate(RedisConnectionFactory factory) {
         Jackson2JsonRedisSerializer<?> jackson2JsonRedisSerializer = new Jackson2JsonRedisSerializer<>(Object.class);
@@ -48,12 +49,14 @@ public class RedisConfiguration {
         return redisTemplate;
     }
 
+    // jedis时加载
     @Bean
     @ConditionalOnProperty(name = "spring.redis.client-type", havingValue = "jedis", matchIfMissing = true)
     public JedisService jedisService(RedisConnectionFactory factory) {
         return new JedisService((JedisConnectionFactory) factory);
     }
 
+    // lettuce加载 暂时没有想到原生实现
     @Bean
     @ConditionalOnProperty(name = "spring.redis.client-type", havingValue = "lettuce", matchIfMissing = true)
     public LettuceService lettuceService(RedisConnectionFactory factory) {

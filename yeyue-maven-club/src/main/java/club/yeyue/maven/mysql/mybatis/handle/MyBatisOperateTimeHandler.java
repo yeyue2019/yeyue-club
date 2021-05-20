@@ -7,6 +7,8 @@ import org.springframework.stereotype.Component;
 import java.time.LocalDateTime;
 
 /**
+ * 指定insert / update 填充字段
+ *
  * @author fred
  * @date 2021-05-20 11:17
  */

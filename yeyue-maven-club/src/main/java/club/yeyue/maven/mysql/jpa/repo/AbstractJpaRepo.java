@@ -8,9 +8,12 @@ import javax.persistence.EntityManager;
 import java.io.Serializable;
 
 /**
+ * 数据库实体默认继承repo
+ *
  * @author fred
  * @date 2021-05-14 17:19
  */
+// 不注入
 @NoRepositoryBean
 public interface AbstractJpaRepo<T, ID extends Serializable> extends JpaRepository<T, ID>, JpaSpecificationExecutor<T> {
 

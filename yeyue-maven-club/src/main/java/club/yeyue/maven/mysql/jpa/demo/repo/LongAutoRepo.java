@@ -10,6 +10,8 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 /**
+ * 自定义实体对应的repo
+ *
  * @author fred
  * @date 2021-05-19 09:01
  */

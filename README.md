@@ -1,4 +1,5 @@
 # yeyue-club
+
 ***
 
 **springboot自行搭建项目架子**
@@ -14,4 +15,7 @@
 > mysql、druid连接池、数据库框架jpa、mybatis-plus
 
 注意：
-1.  redis可以根据配置项自动选择使用的客户端
+
+1. redis可以根据配置项自动选择使用的客户端
+
+2. mybatis-plus使用actable自动建表,且采用无xml开发的方式
