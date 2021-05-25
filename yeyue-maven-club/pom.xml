@@ -18,8 +18,8 @@
         <redisson.version>3.15.5</redisson.version>
         <druid.verison>1.2.6</druid.verison>
         <mybatis-plus.version>3.4.2</mybatis-plus.version>
-<!--        <mybatis-plus-generator.version>3.4.1</mybatis-plus-generator.version>-->
         <mybatis-enhance-actable.version>1.4.9.RELEASE</mybatis-enhance-actable.version>
+        <common.io.version>2.8.0</common.io.version>
     </properties>
     <dependencies>
         <dependency>
@@ -79,15 +79,14 @@
             <artifactId>mybatis-plus-boot-starter</artifactId>
             <version>${mybatis-plus.version}</version>
         </dependency>
-<!--        <dependency>-->
-<!--            <groupId>com.baomidou</groupId>-->
-<!--            <artifactId>mybatis-plus-generator</artifactId>-->
-<!--            <version>${mybatis-plus-generator.version}</version>-->
-<!--        </dependency>-->
         <dependency>
             <groupId>com.gitee.sunchenbin.mybatis.actable</groupId>
             <artifactId>mybatis-enhance-actable</artifactId>
             <version>${mybatis-enhance-actable.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.squareup.okhttp3</groupId>
+            <artifactId>okhttp</artifactId>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -102,7 +101,11 @@
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-lang3</artifactId>
         </dependency>
-
+        <dependency>
+            <groupId>commons-io</groupId>
+            <artifactId>commons-io</artifactId>
+            <version>${common.io.version}</version>
+        </dependency>
     </dependencies>
 
     <build>
