@@ -14,6 +14,14 @@
 
 > mysql、druid连接池、数据库框架jpa、mybatis-plus
 
+**工具类**
+
+> Jackson JSON转化
+
+> 雪花Id生成算法
+
+> Http请求工具 使用okhttp封装
+
 注意：
 
 1. redis可以根据配置项自动选择使用的客户端
