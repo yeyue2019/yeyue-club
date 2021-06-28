@@ -27,76 +27,11 @@ public class OkHttpUtils {
             .connectTimeout(60, TimeUnit.SECONDS)
             .build();
 
-    private static final String GET = "GET";
-    private static final String POST = "POST";
-    private static final MediaType JSON_TYPE = MediaType.parse("application/json; charset=utf-8");
-    private static final MediaType MEDIA_TYPE = MediaType.parse("multipart/form-data");
-
-    @SneakyThrows
-    public static byte[] sendGet(String url) {
-        return sendGet(url, null);
-    }
-
-    @SneakyThrows
-    public static byte[] sendGet(String url, Map<String, String> headers) {
-        return execute(HttpUrl.parse(url), GET, null, defaultFormHeaders(headers));
-    }
-
-    @SneakyThrows
-    public static byte[] sendGet(String scheme, String host, String path, Map<String, String> params, Map<String, String> headers) {
-        return execute(getUrl(scheme, host, path, params), GET, null, defaultFormHeaders(headers));
-    }
-
-    @SneakyThrows
-    public static byte[] sendPost(String url, String body) {
-        return sendPost(url, body, null);
-    }
-
-    @SneakyThrows
-    public static byte[] sendPost(String url, String body, Map<String, String> headers) {
-        return execute(HttpUrl.parse(url), POST, RequestBody.create(JSON_TYPE, body), defaultJsonHeaders(headers));
-    }
-
-    @SneakyThrows
-    public static byte[] sendPost(String scheme, String host, String path, Map<String, String> params, String body, Map<String, String> headers) {
-        return execute(getUrl(scheme, host, path, params), POST, RequestBody.create(JSON_TYPE, body), defaultJsonHeaders(headers));
-    }
-
-    @SneakyThrows
-    public static byte[] sendPost(String url) {
-        return sendPost(url, (String) null);
-    }
-
-    @SneakyThrows
-    public static byte[] sendPost(String url, Map<String, String> headers) {
-        return sendPost(url, (String) null, headers);
-    }
-
-    @SneakyThrows
-    public static byte[] sendPost(String url, Map<String, String> params, Map<String, String> headers) {
-        return execute(HttpUrl.parse(url), POST, formBody(params), defaultFormHeaders(headers));
-    }
-
-    @SneakyThrows
-    public static byte[] sendPost(String scheme, String host, String path, Map<String, String> params, Map<String, String> headers) {
-        return execute(getUrl(scheme, host, path, null), POST, formBody(params), defaultFormHeaders(headers));
-    }
-
-    @SneakyThrows
-    public static byte[] sendPost(String scheme, String host, String path, Map<String, String> params, Map<String, Map<String, byte[]>> upload, Map<String, String> headers) {
-        return sendPost(scheme, host, path, params, upload, null, headers);
-    }
-
-    @SneakyThrows
-    public static byte[] sendPost(String url, Map<String, Map<String, byte[]>> upload, Map<String, String> form, Map<String, String> headers) {
-        return execute(HttpUrl.parse(url), POST, multipartBody(upload, form), headers);
-    }
-
-    @SneakyThrows
-    public static byte[] sendPost(String scheme, String host, String path, Map<String, String> params, Map<String, Map<String, byte[]>> upload, Map<String, String> form, Map<String, String> headers) {
-        return execute(getUrl(scheme, host, path, params), POST, multipartBody(upload, form), headers);
-    }
-
+    public static final String GET = "GET";
+    public static final String POST = "POST";
+    public static final MediaType JSON_TYPE = MediaType.parse("application/json; charset=utf-8");
+    public static final MediaType MEDIA_TYPE = MediaType.parse("multipart/form-data; charset=utf-8");
+    public static final MediaType FORM_TYPE = MediaType.parse("application/x-www-form-urlencoded; charset=utf-8");
 
     /**
      * 同步请求通用方法
@@ -108,7 +43,7 @@ public class OkHttpUtils {
      * @return 结果
      */
     @SneakyThrows
-    private static byte[] execute(HttpUrl url, String method, RequestBody body, Map<String, String> headers) {
+    public static byte[] execute(HttpUrl url, Map<String, String> headers, String method, RequestBody body) {
         Request.Builder builder = new Request.Builder();
         builder.url(url).method(method, body);
         if (!CollectionUtils.isEmpty(headers)) {
@@ -129,56 +64,6 @@ public class OkHttpUtils {
     }
 
 
-    private static MultipartBody multipartBody(Map<String, Map<String, byte[]>> upload, Map<String, String> form) {
-        MultipartBody.Builder builder = new MultipartBody.Builder().setType(MultipartBody.FORM);
-        if (!CollectionUtils.isEmpty(upload)) {
-            upload.forEach((key, value) -> value.forEach((name, file) -> builder.addFormDataPart(key, name, RequestBody.create(MEDIA_TYPE, file))));
-        }
-        if (!CollectionUtils.isEmpty(form)) {
-            form.forEach(builder::addFormDataPart);
-        }
-        return builder.build();
-    }
-
-    private static FormBody formBody(Map<String, String> params) {
-        FormBody.Builder builder = new FormBody.Builder();
-        if (!CollectionUtils.isEmpty(params)) {
-            params.forEach(builder::add);
-        }
-        return builder.build();
-    }
-
-    /**
-     * 默认的form提交请求头
-     *
-     * @param headers 请求头
-     * @return 结果
-     */
-    private static Map<String, String> defaultFormHeaders(Map<String, String> headers) {
-        if (Objects.isNull(headers)) {
-            headers = new HashMap<>(10);
-        }
-        headers.putIfAbsent("Accept", "application/json;charset=utf-8");
-        headers.putIfAbsent("Content-Type", "application/x-www-form-urlencoded;charset=utf-8");
-        return headers;
-    }
-
-    /**
-     * 默认的Json请求头
-     *
-     * @param headers 请求头
-     * @return 结果
-     */
-    private static Map<String, String> defaultJsonHeaders(Map<String, String> headers) {
-        if (Objects.isNull(headers)) {
-            headers = new HashMap<>(10);
-        }
-        headers.putIfAbsent("Accept", "application/json;charset=utf-8");
-        headers.putIfAbsent("Content-Type", "application/json;charset=UTF-8");
-        return headers;
-    }
-
-
     /**
      * 获取请求url
      *
@@ -188,7 +73,7 @@ public class OkHttpUtils {
      * @param params 参数
      * @return url
      */
-    private static HttpUrl getUrl(String scheme, String host, String path, Map<String, String> params) {
+    public static HttpUrl getUrl(String scheme, String host, String path, Map<String, String> params) {
         HttpUrl.Builder urlBuilder = new HttpUrl.Builder()
                 .scheme(scheme)
                 .host(host)
@@ -199,5 +84,83 @@ public class OkHttpUtils {
         return urlBuilder.build();
     }
 
+    /**
+     * 获取请求Url
+     *
+     * @param url    url地址
+     * @param params 参数
+     * @return 结果
+     */
+    public static HttpUrl getUrl(String url, Map<String, String> params) {
+        HttpUrl source = HttpUrl.parse(url);
+        assert source != null;
+        HttpUrl.Builder urlBuilder = source.newBuilder();
+        if (!CollectionUtils.isEmpty(params)) {
+            params.forEach(urlBuilder::addQueryParameter);
+        }
+        return urlBuilder.build();
+    }
 
+    /**
+     * 获取请求头
+     *
+     * @param headers 请求头
+     * @return 结果
+     */
+    public static Map<String, String> getHeaders(Map<String, String> headers, MediaType mediaType) {
+        if (Objects.isNull(headers)) {
+            headers = new HashMap<>(10);
+        }
+        headers.putIfAbsent("Accept", "application/json; charset=utf-8");
+        if (Objects.equals(MEDIA_TYPE, mediaType)) {
+            headers.putIfAbsent("Content-Type", "multipart/form-data; charset=utf-8");
+        } else if (Objects.equals(FORM_TYPE, mediaType)) {
+            headers.putIfAbsent("Content-Type", "application/x-www-form-urlencoded; charset=utf-8");
+        } else if (Objects.equals(JSON_TYPE, mediaType)) {
+            headers.putIfAbsent("Content-Type", "application/json; charset=UTF-8");
+        }
+        return headers;
+    }
+
+    /**
+     * 获取请求体
+     *
+     * @param upload   上传的文件
+     * @param formData 提交的数据
+     * @return 结果
+     */
+    public static MultipartBody multipartBody(Map<String, Map<String, byte[]>> upload, Map<String, String> formData) {
+        MultipartBody.Builder builder = new MultipartBody.Builder().setType(MultipartBody.FORM);
+        if (!CollectionUtils.isEmpty(upload)) {
+            upload.forEach((key, value) -> value.forEach((name, file) -> builder.addFormDataPart(key, name, RequestBody.create(MEDIA_TYPE, file))));
+        }
+        if (!CollectionUtils.isEmpty(formData)) {
+            formData.forEach(builder::addFormDataPart);
+        }
+        return builder.build();
+    }
+
+    /**
+     * 获取请求体
+     *
+     * @param params 提交的参数
+     * @return 结果
+     */
+    public static FormBody formBody(Map<String, String> params) {
+        FormBody.Builder builder = new FormBody.Builder();
+        if (!CollectionUtils.isEmpty(params)) {
+            params.forEach(builder::add);
+        }
+        return builder.build();
+    }
+
+    /**
+     * 获取请求体
+     *
+     * @param body 请求体数据
+     * @return 结果
+     */
+    public static RequestBody jsonBody(String body) {
+        return RequestBody.create(JSON_TYPE, body);
+    }
 }
