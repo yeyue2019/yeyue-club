@@ -2,6 +2,7 @@ package club.yeyue.maven.redis;
 
 import club.yeyue.maven.YeyueMavenClubApplication;
 import club.yeyue.maven.redis.jedis.JedisService;
+import club.yeyue.maven.redis.lettuce.LettuceService;
 import club.yeyue.maven.util.SpringBeanUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
@@ -23,6 +24,13 @@ import java.util.concurrent.TimeUnit;
 public class RedisClientTest {
 
     @Test
+    public void redisDemoTest() {
+        RedisService redisService = SpringBeanUtils.getBean(RedisService.class);
+        redisService.set("redisTest", System.currentTimeMillis() + "", 1L, TimeUnit.DAYS);
+        log.info("redisService获取到的值:{}", redisService.get("redisTest"));
+    }
+
+    @Test
     public void jedisDemoTest() {
         RedisService redisService = SpringBeanUtils.getBean(RedisService.class);
         redisService.set("jedisTest", System.currentTimeMillis() + "", 1L, TimeUnit.DAYS);
@@ -33,7 +41,7 @@ public class RedisClientTest {
     public void lettuceDemoTest() {
         RedisService redisService = SpringBeanUtils.getBean(RedisService.class);
         redisService.set("lettuceTest", System.currentTimeMillis() + "", 1L, TimeUnit.DAYS);
-        log.info("redisService获取到的值:{}", redisService.get("lettuceTest"));
+        log.info("redisService获取到的值:{}", SpringBeanUtils.getBean(LettuceService.class).get("lettuceTest"));
     }
 
     @Test

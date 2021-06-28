@@ -20,7 +20,6 @@ public class JedisService {
     }
 
     public String get(String key) {
-        // TODO: 2021/5/12 效率问题没有测试
         try (Jedis jedis = ((JedisConnection) factory.getConnection()).getJedis()) {
             return jedis.get(key);
         }
