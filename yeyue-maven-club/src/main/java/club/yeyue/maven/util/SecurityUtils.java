@@ -121,7 +121,6 @@ public class SecurityUtils {
      */
     public static Keys getKeys(String algorithm) throws NoSuchAlgorithmException {
         KeyPairGenerator keyPairGen = KeyPairGenerator.getInstance(algorithm);
-        // TODO: 2021/6/29 测试不同次数的生成结果
         keyPairGen.initialize(KEY_SIZE, new SecureRandom());
         KeyPair keyPair = keyPairGen.generateKeyPair();
         PublicKey publicKey = keyPair.getPublic();
@@ -224,7 +223,7 @@ public class SecurityUtils {
     }
 
     /**
-     * 解密
+     * 消息解密
      *
      * @param algorithm      加密方式
      * @param key            私钥字符串
@@ -311,8 +310,6 @@ public class SecurityUtils {
         }
     }
 
-    /* Rsa 加解密 */
-
     private static class KeyPoolFactory extends BaseKeyedPooledObjectFactory<String, KeyFactory> {
 
         @Override
@@ -369,8 +366,6 @@ public class SecurityUtils {
         }
     }
 
-    /* AES 加解密 */
-
     public static class CipherPoolFactory extends BaseKeyedPooledObjectFactory<CipherSource, Cipher> {
 
         @Override
@@ -417,7 +412,7 @@ public class SecurityUtils {
     }
 
     /**
-     * 偏移量、密钥
+     * Cipher参数
      */
     @Data
     public static class CipherSource implements Serializable {
@@ -434,7 +429,7 @@ public class SecurityUtils {
         private String key;
 
         /**
-         * 便宜量 AES加密时使用
+         * 偏移量 AES加密时使用
          */
         private String iv;
 
