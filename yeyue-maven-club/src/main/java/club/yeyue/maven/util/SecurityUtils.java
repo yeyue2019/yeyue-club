@@ -271,8 +271,7 @@ public class SecurityUtils {
         Signature signature = Signature.getInstance(transformation);
         signature.initSign(privateKey);
         signature.update(source.getBytes());
-        byte[] result = signature.sign();
-        return Base64.getEncoder().encodeToString(result);
+        return Base64.getEncoder().encodeToString(signature.sign());
     }
 
     /**
