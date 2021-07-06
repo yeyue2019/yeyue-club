@@ -35,11 +35,16 @@
                 </Delete>
             </DefaultRolloverStrategy>
         </RollingFile>
+<!--        <Socket name="Socket" host="127.0.0.1" port="5044">-->
+<!--            <PatternLayout pattern="${LOG_PATTERN}"/>-->
+<!--            &lt;!&ndash;            <JsonLayout/>&ndash;&gt;-->
+<!--        </Socket>-->
     </Appenders>
     <Loggers>
         <Root level="DEBUG">
             <Appender-Ref ref="Console"/>
             <Appender-Ref ref="RollingFile"/>
+<!--            <AppenderRef ref="Socket"/>-->
         </Root>
     </Loggers>
 </Configuration>
