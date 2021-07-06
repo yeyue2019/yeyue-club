@@ -16,6 +16,7 @@ public class SpringBeanUtils implements ApplicationContextAware {
     private volatile static ApplicationContext context;
 
     @Override
+    @SuppressWarnings("all")
     public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
         context = applicationContext;
     }

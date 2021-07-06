@@ -5,8 +5,11 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.DeserializationFeature;
+import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
+import com.fasterxml.jackson.databind.node.ArrayNode;
+import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.fasterxml.jackson.datatype.jdk8.Jdk8Module;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateDeserializer;
@@ -16,6 +19,7 @@ import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateSerializer;
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalTimeSerializer;
 import com.fasterxml.jackson.module.paramnames.ParameterNamesModule;
+import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 
 import java.text.SimpleDateFormat;
@@ -66,6 +70,10 @@ public class JacksonUtils {
         JACKSON_OBJECT_MAPPER.registerModule(new ParameterNamesModule());
     }
 
+    public static ObjectMapper getMapper() {
+        return JACKSON_OBJECT_MAPPER;
+    }
+
     public static <T> String toJsonString(T object) {
         return toJsonString(object, JACKSON_OBJECT_MAPPER);
     }
@@ -82,11 +90,11 @@ public class JacksonUtils {
         }
     }
 
-    public static <T> String toJsonStringFormat(T object) {
-        return toJsonStringFormat(object, JACKSON_OBJECT_MAPPER);
+    public static <T> String toFormatJsonString(T object) {
+        return toFormatJsonString(object, JACKSON_OBJECT_MAPPER);
     }
 
-    public static <T> String toJsonStringFormat(T object, ObjectMapper mapper) {
+    public static <T> String toFormatJsonString(T object, ObjectMapper mapper) {
         if (object == null) {
             return null;
         }
@@ -133,33 +141,37 @@ public class JacksonUtils {
         }
     }
 
+    public static ObjectNode createJsonObject() {
+        return createJsonObject(JACKSON_OBJECT_MAPPER);
+    }
 
-//    public static void main(String[] args) {
-//        ClubLongEntity entity = new ClubLongEntity();
-//        entity.setId(100L);
-//        entity.setCreated(LocalDateTime.now());
-//        entity.setClubName("夜月");
-//        ClubLongEntity entity2 = new ClubLongEntity();
-//        entity2.setId(120L);
-//        entity2.setUpdated(LocalDateTime.now());
-//        entity2.setClubName("夜月v2");
-//        // 测试对象转JSON
-//        System.out.println(toJsonString(""));
-//        String json = toJsonString(entity);
-//        System.out.println(json);
-//        List<ClubLongEntity> entityList = Collections.singletonList(entity2);
-//        String json2 = toJsonString(entityList);
-//        System.out.println(json2);
-//        Map<String, List<ClubLongEntity>> map = Collections.singletonMap("ces", entityList);
-//        String json3 = toJsonString(map);
-//        System.out.println(json3);
-//        ClubLongEntity entity4 = toObject(json, ClubLongEntity.class);
-//        System.out.println(entity4);
-//        List<ClubLongEntity> entityList2 = toObject(json2, new TypeReference<List<ClubLongEntity>>() {
-//        });
-//        System.out.println(entityList2);
-//        System.out.println(toObject("[]", new TypeReference<List<ClubLongEntity>>() {
-//        }));
-//        System.out.println(toObject("{}", ClubLongEntity.class));
-//    }
+    public static ObjectNode createJsonObject(ObjectMapper mapper) {
+        return mapper.createObjectNode();
+    }
+
+    public static ArrayNode createJsonArray() {
+        return createJsonArray(JACKSON_OBJECT_MAPPER);
+    }
+
+    public static ArrayNode createJsonArray(ObjectMapper mapper) {
+        return mapper.createArrayNode();
+    }
+
+    public static JsonNode empty() {
+        return empty(JACKSON_OBJECT_MAPPER);
+    }
+
+    public static JsonNode empty(ObjectMapper mapper) {
+        return mapper.nullNode();
+    }
+
+    @SneakyThrows
+    public static JsonNode getJson(String source) {
+        return getJson(source, JACKSON_OBJECT_MAPPER);
+    }
+
+    @SneakyThrows
+    public static JsonNode getJson(String source, ObjectMapper mapper) {
+        return mapper.readTree(source);
+    }
 }
