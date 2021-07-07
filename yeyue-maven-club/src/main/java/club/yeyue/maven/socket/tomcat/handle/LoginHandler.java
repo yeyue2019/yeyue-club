@@ -1,8 +1,8 @@
 package club.yeyue.maven.socket.tomcat.handle;
 
-import club.yeyue.maven.socket.tomcat.model.LoginMessage;
-import club.yeyue.maven.socket.tomcat.model.LoginRequest;
-import club.yeyue.maven.socket.tomcat.model.LoginResponse;
+import club.yeyue.maven.socket.message.LoginMessage;
+import club.yeyue.maven.socket.message.LoginRequest;
+import club.yeyue.maven.socket.message.LoginResponse;
 import club.yeyue.maven.socket.tomcat.util.TomcatSocketUtils;
 import club.yeyue.maven.util.JacksonUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -18,7 +18,7 @@ import java.util.Map;
  * @author fred
  * @date 2021-07-06 23:31
  */
-@Component
+@Component("tomcatLoginHandler")
 public class LoginHandler implements TomcatSocketHandler<LoginRequest> {
 
     @Override

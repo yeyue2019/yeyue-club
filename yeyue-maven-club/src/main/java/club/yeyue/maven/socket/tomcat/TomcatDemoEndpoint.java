@@ -1,9 +1,9 @@
 package club.yeyue.maven.socket.tomcat;
 
+import club.yeyue.maven.socket.message.LoginRequest;
+import club.yeyue.maven.socket.message.LogoutMessage;
 import club.yeyue.maven.socket.tomcat.handle.LoginHandler;
 import club.yeyue.maven.socket.tomcat.handle.TomcatSocketHandler;
-import club.yeyue.maven.socket.tomcat.model.LoginRequest;
-import club.yeyue.maven.socket.tomcat.model.LogoutMessage;
 import club.yeyue.maven.socket.tomcat.util.TomcatSocketUtils;
 import club.yeyue.maven.util.JacksonUtils;
 import club.yeyue.maven.util.SpringBeanUtils;
@@ -30,7 +30,7 @@ import java.util.Map;
  * @date 2021-07-07 00:30
  */
 @Slf4j
-@ServerEndpoint(value = "/")
+@ServerEndpoint(value = "/tomcat")
 @Controller
 public class TomcatDemoEndpoint implements InitializingBean {
 
@@ -92,6 +92,6 @@ public class TomcatDemoEndpoint implements InitializingBean {
 
     @OnError
     public void onError(Session session, Throwable throwable) {
-        log.error("发生错误:{}", session, throwable);
+        log.error("发生错误:{}", session.getId(), throwable);
     }
 }

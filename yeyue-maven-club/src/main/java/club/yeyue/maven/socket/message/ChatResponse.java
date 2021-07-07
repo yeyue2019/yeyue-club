@@ -1,4 +1,4 @@
-package club.yeyue.maven.socket.tomcat.model;
+package club.yeyue.maven.socket.message;
 
 import lombok.Data;
 import lombok.experimental.Accessors;
@@ -13,7 +13,7 @@ import java.io.Serializable;
  */
 @Data
 @Accessors(chain = true)
-public class ChatResponse implements TomcatSocketMessage, Serializable {
+public class ChatResponse implements SocketMessage, Serializable {
     private static final long serialVersionUID = 9136575300960237776L;
 
     private String msgId;

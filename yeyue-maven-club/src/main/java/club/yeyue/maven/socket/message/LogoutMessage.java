@@ -1,4 +1,4 @@
-package club.yeyue.maven.socket.tomcat.model;
+package club.yeyue.maven.socket.message;
 
 import lombok.Data;
 import lombok.experimental.Accessors;
@@ -14,7 +14,7 @@ import java.time.LocalDateTime;
  */
 @Data
 @Accessors(chain = true)
-public class LogoutMessage implements TomcatSocketMessage, Serializable {
+public class LogoutMessage implements SocketMessage, Serializable {
     private static final long serialVersionUID = 2907332614373594358L;
 
     private String username;

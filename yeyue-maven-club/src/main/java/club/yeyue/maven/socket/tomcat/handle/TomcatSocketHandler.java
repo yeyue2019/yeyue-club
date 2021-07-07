@@ -1,6 +1,6 @@
 package club.yeyue.maven.socket.tomcat.handle;
 
-import club.yeyue.maven.socket.tomcat.model.TomcatSocketMessage;
+import club.yeyue.maven.socket.message.SocketMessage;
 
 import javax.websocket.Session;
 import java.util.Map;
@@ -11,7 +11,7 @@ import java.util.Map;
  * @author fred
  * @date 2021-07-06 23:27
  */
-public interface TomcatSocketHandler<T extends TomcatSocketMessage> {
+public interface TomcatSocketHandler<T extends SocketMessage> {
 
     void execute(Session session, T message);
 
