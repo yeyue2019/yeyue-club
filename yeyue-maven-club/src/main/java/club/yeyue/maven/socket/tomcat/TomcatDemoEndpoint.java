@@ -24,6 +24,8 @@ import java.util.List;
 import java.util.Map;
 
 /**
+ * socket管理
+ *
  * @author fred
  * @date 2021-07-07 00:30
  */

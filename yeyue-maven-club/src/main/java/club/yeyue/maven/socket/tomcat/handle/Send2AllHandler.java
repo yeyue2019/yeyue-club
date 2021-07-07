@@ -11,6 +11,8 @@ import javax.websocket.Session;
 import java.util.Map;
 
 /**
+ * 群发消息处理器
+ *
  * @author fred
  * @date 2021-07-07 00:27
  */
@@ -19,12 +21,11 @@ public class Send2AllHandler implements TomcatSocketHandler<Send2AllMessage> {
 
     @Override
     public void execute(Session session, Send2AllMessage message) {
-        // 这里，假装直接成功
+        // 响应
         ChatResponse sendResponse = new ChatResponse().setMsgId(message.getMsgId()).setCode(1);
         TomcatSocketUtils.send(session, "CHAT_RES", sendResponse);
-        // 创建转发的消息
+        // 转发
         ChatRequest sendToUserRequest = new ChatRequest().setMsgId(message.getMsgId()).setContent(message.getContent());
-        // 广播发送
         TomcatSocketUtils.broadcast("SEND_ALL_MSG", sendToUserRequest);
     }
 

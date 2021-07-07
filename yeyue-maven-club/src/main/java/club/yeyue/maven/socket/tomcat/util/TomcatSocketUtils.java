@@ -12,6 +12,8 @@ import java.io.IOException;
 import java.util.concurrent.ConcurrentHashMap;
 
 /**
+ * 会话管理
+ *
  * @author fred
  * @date 2021-07-06 23:37
  */

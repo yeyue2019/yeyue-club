@@ -7,6 +7,8 @@ import java.io.Serializable;
 import java.time.LocalDateTime;
 
 /**
+ * 登出推送消息
+ *
  * @author fred
  * @date 2021-07-06 18:01
  */

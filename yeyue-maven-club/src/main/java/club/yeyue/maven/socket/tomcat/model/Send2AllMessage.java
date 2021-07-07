@@ -6,6 +6,8 @@ import lombok.experimental.Accessors;
 import java.io.Serializable;
 
 /**
+ * 群发消息
+ *
  * @author fred
  * @date 2021-07-06 18:00
  */

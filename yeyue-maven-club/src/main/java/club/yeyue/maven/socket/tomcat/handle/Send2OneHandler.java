@@ -11,6 +11,8 @@ import javax.websocket.Session;
 import java.util.Map;
 
 /**
+ * 一对一消息处理器
+ *
  * @author fred
  * @date 2021-07-07 00:22
  */
@@ -18,12 +20,11 @@ import java.util.Map;
 public class Send2OneHandler implements TomcatSocketHandler<Send2OneMessage> {
     @Override
     public void execute(Session session, Send2OneMessage message) {
-        // 这里，假装直接成功
+        // 响应
         ChatResponse sendResponse = new ChatResponse().setMsgId(message.getMsgId()).setCode(1);
         TomcatSocketUtils.send(session, "CHAT_RES", sendResponse);
-        // 创建转发的消息
+        // 转发
         ChatRequest sendToUserRequest = new ChatRequest().setMsgId(message.getMsgId()).setContent(message.getContent());
-        // 发送
         TomcatSocketUtils.send(message.getUsername(), "SEND_ONE_MSG", sendToUserRequest);
     }
 
