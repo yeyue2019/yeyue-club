@@ -4,9 +4,11 @@
 
 **springboot自行搭建项目架子**
 
-主要配置都是通过springboot自动配置启动的
+> springboot自动配置
 
-使用log4j2收集系统日志
+> log4j2收集系统日志
+
+> websocket基本实现:tomcat,spring,spring-stomp
 
 **目前集成中间件：**
 
@@ -22,10 +24,12 @@
 
 > Http请求工具 使用okhttp封装
 
-> 加解密工具类
+> 加解密池工具类
 
 注意：
 
 1. redis可以根据配置项自动选择使用的客户端
 
 2. mybatis-plus使用actable自动建表,且采用无xml开发的方式
+
+3. spring stomp 实现了类似订阅的点对点和主题模式
