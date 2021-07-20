@@ -1,4 +1,4 @@
-package club.yeyue.maven.model;
+package club.yeyue.mysql.model;
 
 /**
  * 测试数据库插入的枚举
@@ -6,9 +6,9 @@ package club.yeyue.maven.model;
  * @author fred
  * @date 2021-05-19 08:56
  */
-public enum MyEnum {
+public enum Gender {
 
-    A,
-    B,
-    C
+    男,
+    女,
+    未知
 }

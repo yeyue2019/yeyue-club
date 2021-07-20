@@ -1,7 +1,7 @@
 package club.yeyue.maven.mysql;
 
 import club.yeyue.maven.YeyueMavenClubApplication;
-import club.yeyue.maven.model.MyEnum;
+import club.yeyue.maven.model.GenderEnum;
 import club.yeyue.maven.mysql.jpa.demo.entity.LongAutoEntity;
 import club.yeyue.maven.mysql.jpa.demo.repo.LongAutoRepo;
 import club.yeyue.maven.mysql.mybatis.demo.entity.LongMyBatisEntity;
@@ -40,33 +40,6 @@ import java.util.List;
 @Import(SpringBeanUtils.class)
 public class MysqlTest {
 
-    @Test
-    public void jpaAutoLongInsertTest() {
-        LongAutoRepo repo = SpringBeanUtils.getBean(LongAutoRepo.class);
-        LongAutoEntity entity = new LongAutoEntity();
-        entity.setName("笨笨");
-        entity.setMyEnum(MyEnum.C);
-        entity.setAge(23);
-        repo.save(entity);
-    }
-
-    @Test
-    public void jpaAutoLongUpdateTest() {
-        LongAutoRepo repo = SpringBeanUtils.getBean(LongAutoRepo.class);
-        int num = repo.updateName(1L, "菜菜");
-        log.info("更新数量:{}", num);
-    }
-
-    @Test
-    public void jpaAutoLongQueryTest() {
-        LongAutoRepo repo = SpringBeanUtils.getBean(LongAutoRepo.class);
-        LongAutoEntity v1 = repo.findOne(1L);
-        log.info("findOne查询结果:{}", JacksonUtils.toJsonString(v1));
-        List<LongAutoEntity> v2 = repo.findByName("菜菜");
-        log.info("findByName查询结果:{}", JacksonUtils.toJsonString(v2));
-        List<LongAutoEntity> v3 = repo.findByNameAndAge("笨笨", 23);
-        log.info("findByNameAndAge查询结果:{}", JacksonUtils.toJsonString(v3));
-    }
 
     @Test
     public void jpaAutoLongSpeQueryTest() {
@@ -102,7 +75,7 @@ public class MysqlTest {
         LongMyBatisEntity entity = new LongMyBatisEntity();
         entity.setName("憨憨");
         entity.setAge(22);
-        entity.setMyEnum(MyEnum.B);
+        entity.setMyEnum(GenderEnum.女);
         int num = mapper.insert(entity);
         assert num == 1;
     }
@@ -114,7 +87,7 @@ public class MysqlTest {
         entity.setId(1395249044414017538L);
         entity.setName("夜月");
         entity.setAge(12);
-        entity.setMyEnum(MyEnum.A);
+        entity.setMyEnum(GenderEnum.男);
         int size = mapper.updateById(entity);
         assert size == 1;
     }

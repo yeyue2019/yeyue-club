@@ -1,6 +1,6 @@
 package club.yeyue.maven.mysql.jpa.demo.entity;
 
-import club.yeyue.maven.model.MyEnum;
+import club.yeyue.maven.model.GenderEnum;
 import club.yeyue.maven.mysql.jpa.entity.AbstractJpaEntity;
 import lombok.Data;
 
@@ -27,6 +27,6 @@ public class LongAutoEntity extends AbstractJpaEntity {
     private Integer age;
 
     @Enumerated(EnumType.STRING)
-    private MyEnum myEnum;
+    private GenderEnum myEnum;
 
 }

@@ -1,1 +1,1 @@
-org.springframework.boot.autoconfigure.EnableAutoConfiguration=club.yeyue.spring.starter.redis.RedisFactoryConfiguration
+#org.springframework.boot.autoconfigure.EnableAutoConfiguration=club.yeyue.spring.starter.redis.RedisFactoryConfiguration
