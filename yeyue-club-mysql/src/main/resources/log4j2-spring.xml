@@ -9,14 +9,15 @@
         <Property name="LOG_PATTERN" value="[%d{yyyy-MM-dd HH:mm:ss,SSS}][%-5level][%t][%C.%L]:%m%n"/>
         <!-- 定义日志存储的路径 -->
         <Property name="FILE_PATH" value="logs"/>
+        <Property name="FILE_NAME" value="yeyue-club-mysql"/>
     </Properties>
     <Appenders>
         <Console name="Console" target="SYSTEM_OUT">
             <PatternLayout pattern="${LOG_PATTERN}"/>
             <ThresholdFilter level="DEBUG" onMatch="ACCEPT" onMismatch="DENY"/>
         </Console>
-        <RollingFile name="RollingFile" fileName="${FILE_PATH}/${spring.application.name}.log"
-                     filePattern="${FILE_PATH}/${date:yyyy-MM-dd}/${spring.application.name}_%d{yyyy-MM-dd}_%i.log.gz">
+        <RollingFile name="RollingFile" fileName="${FILE_PATH}/${FILE_NAME}.log"
+                     filePattern="${FILE_PATH}/$${date:yyyy-MM-dd}/${FILE_NAME}_%d{yyyy-MM-dd}_%i.log.gz">
             <ThresholdFilter level="DEBUG" onMatch="ACCEPT" onMismatch="DENY"/>
             <PatternLayout pattern="${LOG_PATTERN}"/>
             <Policies>
