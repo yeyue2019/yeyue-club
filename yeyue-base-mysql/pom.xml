@@ -13,7 +13,7 @@
 
     <groupId>club.yeyue.maven</groupId>
     <artifactId>yeyue-base-mysql</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>0.0.1</version>
     <name>yeyue-base-mysql</name>
     <description>Demo project for Spring Boot : Mysql</description>
     <packaging>pom</packaging>

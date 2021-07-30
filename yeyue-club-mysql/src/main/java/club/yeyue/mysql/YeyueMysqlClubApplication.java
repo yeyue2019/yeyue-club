@@ -4,6 +4,7 @@ import club.yeyue.mysql.base.jpa.repo.JpaRepoImpl;
 import lombok.extern.slf4j.Slf4j;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.CommandLineRunner;
+import org.springframework.boot.WebApplicationType;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.boot.builder.SpringApplicationBuilder;
@@ -28,7 +29,7 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 public class YeyueMysqlClubApplication implements CommandLineRunner {
 
     public static void main(String[] args) throws InterruptedException {
-        ApplicationContext context = new SpringApplicationBuilder(YeyueMysqlClubApplication.class)
+        ApplicationContext context = new SpringApplicationBuilder(YeyueMysqlClubApplication.class).web(WebApplicationType.SERVLET)
                 .build().run(args);
     }
 
