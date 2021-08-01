@@ -1,6 +1,6 @@
 package club.yeyue.jpa.base.repository;
 
-import club.yeyue.jpa.base.entity.AbstractJpaEntity;
+import club.yeyue.jpa.base.entity.AbstractEntity;
 import org.springframework.data.jpa.repository.support.JpaEntityInformation;
 import org.springframework.data.jpa.repository.support.SimpleJpaRepository;
 
@@ -13,7 +13,7 @@ import java.io.Serializable;
  * @author fred
  * @date 2021-07-20 14:21
  */
-public class RepositoryImpl<T extends AbstractJpaEntity, ID extends Serializable> extends SimpleJpaRepository<T, ID> implements AbstractRepository<T, ID> {
+public class RepositoryImpl<T extends AbstractEntity, ID extends Serializable> extends SimpleJpaRepository<T, ID> implements AbstractRepository<T, ID> {
 
 //    private final EntityManager em;
 

@@ -1,6 +1,6 @@
 package club.yeyue.jpa.club.entity;
 
-import club.yeyue.jpa.base.entity.AbstractJpaEntity;
+import club.yeyue.jpa.base.entity.AbstractEntity;
 import lombok.Data;
 import lombok.experimental.Accessors;
 import org.hibernate.annotations.GenericGenerator;
@@ -15,7 +15,7 @@ import javax.persistence.*;
 @Entity
 @Table(name = "club_jpa_student")
 @Accessors(chain = true)
-public class StudentEntity extends AbstractJpaEntity {
+public class StudentEntity extends AbstractEntity {
     private static final long serialVersionUID = -8083992542973241824L;
 
     @Id

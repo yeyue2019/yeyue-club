@@ -3,7 +3,6 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-
     <parent>
         <groupId>club.yeyue.maven</groupId>
         <artifactId>yeyue-base-maven</artifactId>
@@ -11,15 +10,21 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
 
-    <artifactId>yeyue-base-jpa</artifactId>
+    <artifactId>yeyue-base-mybatis</artifactId>
     <version>0.0.1</version>
-    <name>yeyue-base-jpa</name>
-    <description>SpringBoot Jpa使用的封装类</description>
+    <name>yeyue-base-mybatis</name>
+    <description>SpringBoot Mybatis封装公共方法</description>
 
     <dependencies>
+        <!-- mybatis-plus -->
         <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-data-jpa</artifactId>
+            <groupId>com.baomidou</groupId>
+            <artifactId>mybatis-plus-boot-starter</artifactId>
+        </dependency>
+        <!-- mybatis-plus a.c.table自动建表 -->
+        <dependency>
+            <groupId>com.gitee.sunchenbin.mybatis.actable</groupId>
+            <artifactId>mybatis-enhance-actable</artifactId>
         </dependency>
     </dependencies>
 </project>

@@ -1,6 +1,6 @@
 package club.yeyue.jpa.club.entity;
 
-import club.yeyue.jpa.base.entity.AbstractJpaEntity;
+import club.yeyue.jpa.base.entity.AbstractEntity;
 import club.yeyue.jpa.club.model.Gender;
 import lombok.Data;
 import lombok.experimental.Accessors;
@@ -18,7 +18,7 @@ import java.math.BigDecimal;
 @Entity
 @Table(name = "club_jpa_user")
 @Accessors(chain = true)
-public class UserEntity extends AbstractJpaEntity {
+public class UserEntity extends AbstractEntity {
     private static final long serialVersionUID = -8355293106567697174L;
 
     @Id
