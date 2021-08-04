@@ -12,6 +12,7 @@ import org.springframework.context.ApplicationContext;
  * @date 2021-07-22 14:51
  */
 @Slf4j
+
 @MapperScan("club.yeyue.shardingsphere.mapper")
 @SpringBootApplication
 public class YeyueShardingSphereClubApplication implements CommandLineRunner {
