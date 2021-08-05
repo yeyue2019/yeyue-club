@@ -1,13 +1,13 @@
-package club.yeyue.websocket.tomcat.club.handler;
+package club.yeyue.websocket.spring.club.handler;
 
-import club.yeyue.websocket.tomcat.club.core.SocketCore;
-import club.yeyue.websocket.tomcat.club.message.ChatRequest;
-import club.yeyue.websocket.tomcat.club.message.ChatResponse;
-import club.yeyue.websocket.tomcat.club.message.Send2AllMessage;
+import club.yeyue.websocket.spring.club.core.SocketCore;
+import club.yeyue.websocket.spring.club.message.ChatRequest;
+import club.yeyue.websocket.spring.club.message.ChatResponse;
+import club.yeyue.websocket.spring.club.message.Send2AllMessage;
 import com.alibaba.fastjson.JSON;
 import org.springframework.stereotype.Component;
+import org.springframework.web.socket.WebSocketSession;
 
-import javax.websocket.Session;
 import java.util.Map;
 
 /**
@@ -20,7 +20,7 @@ import java.util.Map;
 public class Send2AllHandler implements SocketHandler<Send2AllMessage> {
 
     @Override
-    public void execute(Session session, Send2AllMessage message) {
+    public void execute(WebSocketSession session, Send2AllMessage message) {
         // 响应
         ChatResponse sendResponse = new ChatResponse().setMsgId(message.getMsgId()).setCode(1);
         SocketCore.send(session, "CHAT_RES", sendResponse);
@@ -30,7 +30,7 @@ public class Send2AllHandler implements SocketHandler<Send2AllMessage> {
     }
 
     @Override
-    public void execute(Session session, String message) {
+    public void execute(WebSocketSession session, String message) {
         execute(session, JSON.parseObject(message, Send2AllMessage.class));
     }
 

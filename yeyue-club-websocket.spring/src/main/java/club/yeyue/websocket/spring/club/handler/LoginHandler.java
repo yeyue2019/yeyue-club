@@ -1,14 +1,14 @@
-package club.yeyue.websocket.tomcat.club.handler;
+package club.yeyue.websocket.spring.club.handler;
 
-import club.yeyue.websocket.tomcat.club.core.SocketCore;
-import club.yeyue.websocket.tomcat.club.message.LoginMessage;
-import club.yeyue.websocket.tomcat.club.message.LoginRequest;
-import club.yeyue.websocket.tomcat.club.message.LoginResponse;
+import club.yeyue.websocket.spring.club.core.SocketCore;
+import club.yeyue.websocket.spring.club.message.LoginMessage;
+import club.yeyue.websocket.spring.club.message.LoginRequest;
+import club.yeyue.websocket.spring.club.message.LoginResponse;
 import com.alibaba.fastjson.JSON;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Component;
+import org.springframework.web.socket.WebSocketSession;
 
-import javax.websocket.Session;
 import java.time.LocalDateTime;
 import java.util.Map;
 
@@ -22,7 +22,7 @@ import java.util.Map;
 public class LoginHandler implements SocketHandler<LoginRequest> {
 
     @Override
-    public void execute(Session session, LoginRequest message) {
+    public void execute(WebSocketSession session, LoginRequest message) {
         if (StringUtils.isEmpty(message.getUsername())) {
             SocketCore.send(session, "LOGIN_RES", new LoginResponse().setCode(0).setMessage("认证 accessToken 未传入"));
             return;
@@ -35,7 +35,7 @@ public class LoginHandler implements SocketHandler<LoginRequest> {
     }
 
     @Override
-    public void execute(Session session, String message) {
+    public void execute(WebSocketSession session, String message) {
         execute(session, JSON.parseObject(message, LoginRequest.class));
     }
 

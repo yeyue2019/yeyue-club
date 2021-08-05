@@ -1,4 +1,4 @@
-package club.yeyue.maven.socket.message;
+package club.yeyue.websocket.spring.club.message;
 
 import lombok.Data;
 import lombok.experimental.Accessors;
@@ -22,3 +22,6 @@ public class Send2OneMessage implements SocketMessage, Serializable {
 
     private String content;
 }
+/*
+{"type" :  "SEND_ONE_MSG", "message" : {"username" : "用户1", msgId: "1001", "content": "测试点对点消息" } }
+ */

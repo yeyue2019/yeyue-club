@@ -1,4 +1,4 @@
-package club.yeyue.maven.socket.message;
+package club.yeyue.websocket.spring.club.message;
 
 import lombok.Data;
 import lombok.experimental.Accessors;
@@ -20,3 +20,7 @@ public class Send2AllMessage implements SocketMessage, Serializable {
 
     private String content;
 }
+
+/*
+{"type" :  "SEND_ALL_MSG", "message" : { msgId: "1002", "content": "测试广播消息" } }
+ */

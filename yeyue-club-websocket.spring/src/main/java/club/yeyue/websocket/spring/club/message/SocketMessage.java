@@ -1,4 +1,4 @@
-package club.yeyue.maven.socket.message;
+package club.yeyue.websocket.spring.club.message;
 
 /**
  * 基本消息类
