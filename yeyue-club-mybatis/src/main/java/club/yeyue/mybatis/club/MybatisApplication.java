@@ -7,6 +7,7 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
+import org.springframework.context.annotation.ComponentScan;
 
 /**
  * @author fred
@@ -15,6 +16,8 @@ import org.springframework.boot.builder.SpringApplicationBuilder;
 @Slf4j
 @EnableMybatisPlus
 // 添加自动建表需要扫描的mapper
+@ComponentScan(basePackages = {"club.yeyue.mybatis.club", "com.gitee.sunchenbin.mybatis.actable.manager.*"})
+// a.c.table自动建表需要扫描的类
 @MapperScan(basePackages = {"club.yeyue.mybatis.club.mapper", "com.gitee.sunchenbin.mybatis.actable.dao.*"})
 @SpringBootApplication
 public class MybatisApplication implements CommandLineRunner {

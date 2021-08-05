@@ -1,6 +1,6 @@
-package club.yeyue.shardingsphere.entity;
+package club.yeyue.shardingsphere.club.entity;
 
-import club.yeyue.shardingsphere.base.AbstractMybatisEntity;
+import club.yeyue.mybatis.base.entity.AbstractEntity;
 import com.baomidou.mybatisplus.annotation.*;
 import lombok.Data;
 import lombok.experimental.Accessors;
@@ -14,7 +14,7 @@ import java.math.BigDecimal;
 @Data
 @TableName("users")
 @Accessors(chain = true)
-public class UserEntity extends AbstractMybatisEntity {
+public class UserEntity extends AbstractEntity {
     private static final long serialVersionUID = -8355293106567697174L;
 
     @TableId(type = IdType.ASSIGN_ID)

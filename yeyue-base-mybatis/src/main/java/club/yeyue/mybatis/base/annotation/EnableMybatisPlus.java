@@ -14,6 +14,5 @@ import java.lang.annotation.*;
 @Target({ElementType.TYPE})
 @Documented
 @Import({MybatisPlusConfiguration.class})
-@ComponentScan(basePackages = {"com.gitee.sunchenbin.mybatis.actable.manager.*"})// a.c.table自动建表需要扫描的类
 public @interface EnableMybatisPlus {
 }

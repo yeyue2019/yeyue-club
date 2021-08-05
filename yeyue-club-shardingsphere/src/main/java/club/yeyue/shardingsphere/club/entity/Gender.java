@@ -1,4 +1,4 @@
-package club.yeyue.shardingsphere.entity;
+package club.yeyue.shardingsphere.club.entity;
 
 /**
  * 测试数据库插入的枚举

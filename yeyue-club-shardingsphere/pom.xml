@@ -5,25 +5,15 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>org.springframework.boot</groupId>
-        <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.5.2</version>
+        <groupId>club.yeyue.maven</groupId>
+        <artifactId>yeyue-base-maven</artifactId>
+        <version>0.0.1</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
 
-    <groupId>club.yeyue.maven</groupId>
     <artifactId>yeyue-club-shardingsphere</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
-    <name>yeyue-club-shardingsphere</name>
-    <description>Demo project for Spring Boot</description>
-
-    <properties>
-        <java.version>1.8</java.version>
-        <druid.verison>1.2.6</druid.verison>
-        <mybatis-plus.version>3.4.1</mybatis-plus.version>
-        <mybatis-enhance-actable.version>1.5.0.RELEASE</mybatis-enhance-actable.version>
-        <sharding-jdbc.version>4.1.1</sharding-jdbc.version>
-    </properties>
+    <version>0.0.1</version>
+    <packaging>jar</packaging>
 
     <dependencies>
         <!-- 指定为springboot项目 -->
@@ -37,22 +27,6 @@
                 </exclusion>
             </exclusions>
         </dependency>
-        <!-- 指定为web项目 -->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-web</artifactId>
-        </dependency>
-        <!-- log4j2收集日志 -->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-log4j2</artifactId>
-        </dependency>
-        <!-- 测试 -->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-test</artifactId>
-            <scope>test</scope>
-        </dependency>
         <!-- mysql 驱动 -->
         <dependency>
             <groupId>mysql</groupId>
@@ -62,39 +36,51 @@
         <dependency>
             <groupId>com.alibaba</groupId>
             <artifactId>druid</artifactId>
-            <version>${druid.verison}</version>
         </dependency>
         <!-- jdbc依赖 -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-jdbc</artifactId>
         </dependency>
-        <!-- lombok -->
-        <dependency>
-            <groupId>org.projectlombok</groupId>
-            <artifactId>lombok</artifactId>
-        </dependency>
-        <!-- 基本工具类 -->
-        <dependency>
-            <groupId>org.apache.commons</groupId>
-            <artifactId>commons-lang3</artifactId>
-        </dependency>
         <!-- 分库分表依赖 -->
         <dependency>
             <groupId>org.apache.shardingsphere</groupId>
             <artifactId>sharding-jdbc-spring-boot-starter</artifactId>
-            <version>${sharding-jdbc.version}</version>
         </dependency>
-        <!--aop -->
         <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-aop</artifactId>
+            <groupId>club.yeyue.maven</groupId>
+            <artifactId>yeyue-base-mybatis</artifactId>
+            <version>0.0.1</version>
+            <exclusions>
+                <exclusion>
+                    <artifactId>guava</artifactId>
+                    <groupId>com.google.guava</groupId>
+                </exclusion>
+            </exclusions>
         </dependency>
-        <!-- mybatis-plus -->
         <dependency>
             <groupId>com.baomidou</groupId>
             <artifactId>mybatis-plus-boot-starter</artifactId>
             <version>${mybatis-plus.version}</version>
         </dependency>
     </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <version>2.5.2</version>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>2.22.2</version>
+                <configuration>
+                    <!-- 是否跳过测试的配置 -->
+                    <skip>true</skip>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
 </project>
