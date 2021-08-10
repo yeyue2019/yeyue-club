@@ -1,4 +1,4 @@
-package club.yeyue.maven.socket.spring.broker.config;
+package club.yeyue.websocket.broker.club.configuration;
 
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
@@ -19,12 +19,12 @@ import java.util.Map;
  * stomp 配置
  *
  * @author fred
- * @date 2021-07-13 13:53
+ * @date 2021-08-05 17:18
  */
 @Slf4j
 @Configuration
 @EnableWebSocketMessageBroker
-public class SpringBrokerWebSocketConfig implements WebSocketMessageBrokerConfigurer {
+public class WebsocketConfiguration implements WebSocketMessageBrokerConfigurer {
 
     @Override
     public void configureMessageBroker(MessageBrokerRegistry registry) {
@@ -47,7 +47,7 @@ public class SpringBrokerWebSocketConfig implements WebSocketMessageBrokerConfig
 
     @Override
     public void registerStompEndpoints(StompEndpointRegistry registry) {
-        registry.addEndpoint("/spring/broker")
+        registry.addEndpoint("/broker")
                 .setAllowedOrigins("*")
                 .setHandshakeHandler(new CustomHandshakeHandler())
                 .withSockJS();
@@ -81,6 +81,4 @@ public class SpringBrokerWebSocketConfig implements WebSocketMessageBrokerConfig
             return this.name;
         }
     }
-
-
 }

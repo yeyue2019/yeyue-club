@@ -1,16 +1,10 @@
 package club.yeyue.maven;
 
-import club.yeyue.maven.mysql.jpa.repo.JpaRepoImpl;
 import lombok.extern.slf4j.Slf4j;
-import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.context.ApplicationContext;
-import org.springframework.context.annotation.ComponentScan;
-import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
-import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.scheduling.annotation.EnableScheduling;
 
 /**
@@ -20,11 +14,6 @@ import org.springframework.scheduling.annotation.EnableScheduling;
  * @date 2021-05-08 15:49
  */
 @Slf4j
-@EnableJpaAuditing
-@EntityScan(basePackages = "club.yeyue.maven.mysql.jpa.demo.entity")
-@EnableJpaRepositories(basePackages = "club.yeyue.maven.mysql.jpa.demo.repo", repositoryBaseClass = JpaRepoImpl.class)
-@ComponentScan(value = {"com.gitee.sunchenbin.mybatis.actable.manager.*", "club.yeyue.maven.*"})
-@MapperScan(basePackages = {"club.yeyue.maven.mysql.mybatis.demo.mapper", "com.gitee.sunchenbin.mybatis.actable.dao.*"})
 @EnableScheduling
 @SpringBootApplication
 public class YeyueMavenClubApplication implements CommandLineRunner {

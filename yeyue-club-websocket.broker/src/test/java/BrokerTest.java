@@ -1,9 +1,6 @@
-package club.yeyue.maven.socket;
-
-import club.yeyue.maven.socket.message.Send2AllMessage;
-import club.yeyue.maven.util.JacksonUtils;
-import lombok.Data;
-import lombok.experimental.Accessors;
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
+import com.sun.xml.internal.bind.v2.TODO;
 import org.junit.jupiter.api.Test;
 import org.springframework.messaging.converter.MappingJackson2MessageConverter;
 import org.springframework.messaging.simp.stomp.StompCommand;
@@ -18,7 +15,6 @@ import org.springframework.web.socket.sockjs.client.SockJsClient;
 import org.springframework.web.socket.sockjs.client.Transport;
 import org.springframework.web.socket.sockjs.client.WebSocketTransport;
 
-import java.io.Serializable;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
@@ -26,9 +22,10 @@ import java.util.concurrent.ExecutionException;
 
 /**
  * @author fred
- * @date 2021-07-13 14:06
+ * @date 2021-08-05 17:24
  */
-public class SpringBrokerTest {
+public class BrokerTest {
+
     public static final WebSocketHttpHeaders DEFAULT_WEB_SOCKET_HEADERS = new WebSocketHttpHeaders();
     public static final StompHeaders DEFAULT_STOMP_HEADERS = new StompHeaders();
 
@@ -38,70 +35,95 @@ public class SpringBrokerTest {
         SockJsClient sockJsClient = new SockJsClient(transports);
         WebSocketStompClient client = new WebSocketStompClient(sockJsClient);
         MappingJackson2MessageConverter converter = new MappingJackson2MessageConverter();
-        converter.setObjectMapper(JacksonUtils.getMapper());
         client.setMessageConverter(converter);
         return client;
     }
 
-    /* 主题订阅模式1 */
+    public static JSONObject getMessage() {
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("msgId", System.currentTimeMillis());
+        jsonObject.put("content", "subscribeTopic1Test发送消息");
+        return jsonObject;
+    }
+    /* 主题订阅模式 */
 
     @Test
     public void subscribeTopic1Test() throws InterruptedException {
         ReceiveTextStompSessionHandler handler = new ReceiveTextStompSessionHandler();
-        ListenableFuture<StompSession> future = getClient().connect("ws://127.0.0.1:8080/spring/broker", DEFAULT_WEB_SOCKET_HEADERS, DEFAULT_STOMP_HEADERS, handler);
+        ListenableFuture<StompSession> future = getClient().connect("ws://127.0.0.1:8080/broker", DEFAULT_WEB_SOCKET_HEADERS, DEFAULT_STOMP_HEADERS, handler);
         try {
+            JSONObject jsonObject = new JSONObject();
             StompSession session = future.get();
             session.subscribe("/topic/subscribe", handler);
-            session.send("/demo/send_to_all", new Send2AllMessage().setMsgId("10003").setContent("测试下发送消息"));
+            session.send("/demo/send_to_all", getMessage());
         } catch (ExecutionException e) {
             e.printStackTrace();
         }
         Thread.currentThread().join();
     }
 
+    // 测试同时开启两个消费者
     @Test
     public void subscribeTopic2Test() throws InterruptedException {
         ReceiveTextStompSessionHandler handler = new ReceiveTextStompSessionHandler();
-        DEFAULT_WEB_SOCKET_HEADERS.add("web_socket_headers", "web_socket_headers");
-        DEFAULT_STOMP_HEADERS.add("stomp_headers", "stomp_headers");
-        ListenableFuture<StompSession> future = getClient().connect("ws://127.0.0.1:8080/spring/broker", DEFAULT_WEB_SOCKET_HEADERS, DEFAULT_STOMP_HEADERS, handler);
+        ListenableFuture<StompSession> future = getClient().connect("ws://127.0.0.1:8080/broker", DEFAULT_WEB_SOCKET_HEADERS, DEFAULT_STOMP_HEADERS, handler);
         try {
             StompSession session = future.get();
             session.subscribe("/topic/subscribe", handler);
-            session.send("/demo/send_to_all", new Send2AllMessage().setMsgId("10004").setContent("测试下发送消息"));
+            session.send("/demo/send_to_all", getMessage());
         } catch (ExecutionException e) {
             e.printStackTrace();
         }
         Thread.currentThread().join();
     }
+
+    /* 点对点订阅模式 */
 
     @Test
     public void subscribeUser1est() throws InterruptedException {
         ReceiveTextStompSessionHandler handler = new ReceiveTextStompSessionHandler();
-        ListenableFuture<StompSession> future = getClient().connect("ws://127.0.0.1:8080/spring/broker?accessToken=yeyue2021", DEFAULT_WEB_SOCKET_HEADERS, DEFAULT_STOMP_HEADERS, handler);
+        ListenableFuture<StompSession> future = getClient().connect("ws://127.0.0.1:8080/broker?accessToken=user01", DEFAULT_WEB_SOCKET_HEADERS, DEFAULT_STOMP_HEADERS, handler);
         try {
             StompSession session = future.get();
             session.subscribe("/usr/queue/subscribe", handler);
-            session.send("/demo/send_to_one", new Send2OneMessage().setMsgId("20003").setContent("测试下发送消息"));
+            session.send("/demo/send_to_one", getMessage());
         } catch (ExecutionException e) {
             e.printStackTrace();
         }
         Thread.currentThread().join();
     }
 
+    // 不同用户订阅同一主题
     @Test
     public void subscribeUser2est() throws InterruptedException {
         ReceiveTextStompSessionHandler handler = new ReceiveTextStompSessionHandler();
-        ListenableFuture<StompSession> future = getClient().connect("ws://127.0.0.1:8080/spring/broker?accessToken=yeyue2021", DEFAULT_WEB_SOCKET_HEADERS, DEFAULT_STOMP_HEADERS, handler);
+        ListenableFuture<StompSession> future = getClient().connect("ws://127.0.0.1:8080/broker?accessToken=user02", DEFAULT_WEB_SOCKET_HEADERS, DEFAULT_STOMP_HEADERS, handler);
         try {
             StompSession session = future.get();
             session.subscribe("/usr/queue/subscribe", handler);
-            session.send("/demo/send_to_one", new Send2OneMessage().setMsgId("20004").setContent("测试下发送消息"));
+            session.send("/demo/send_to_one", getMessage());
         } catch (ExecutionException e) {
             e.printStackTrace();
         }
         Thread.currentThread().join();
     }
+
+    // 相同用户订阅同一主题
+    // TODO: 2021/8/5 目前仍会出现一个用户多个session都会收到消息的问题
+    @Test
+    public void subscribeUser3est() throws InterruptedException {
+        ReceiveTextStompSessionHandler handler = new ReceiveTextStompSessionHandler();
+        ListenableFuture<StompSession> future = getClient().connect("ws://127.0.0.1:8080/broker?accessToken=user01", DEFAULT_WEB_SOCKET_HEADERS, DEFAULT_STOMP_HEADERS, handler);
+        try {
+            StompSession session = future.get();
+            session.subscribe("/usr/queue/subscribe", handler);
+            session.send("/demo/send_to_one", getMessage());
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
+        Thread.currentThread().join();
+    }
+
 }
 
 // 接收到信息的处理方法
@@ -109,18 +131,18 @@ class ReceiveTextStompSessionHandler extends StompSessionHandlerAdapter {
 
     @Override
     public void handleFrame(StompHeaders headers, Object payload) {
-        System.out.println("接收到信息:" + JacksonUtils.toJsonString(payload));
+        System.out.println("接收到信息:" + JSON.toJSONString(payload));
         super.handleFrame(headers, payload);
     }
 
     @Override
     public Type getPayloadType(StompHeaders headers) {
-        return Send2OneMessage.class;
+        return JSONObject.class;
     }
 
     @Override
     public void afterConnected(StompSession session, StompHeaders connectedHeaders) {
-        System.out.println("session:" + session.getSessionId() + ",headers:" + JacksonUtils.toJsonString(connectedHeaders));
+        System.out.println("session:" + session.getSessionId() + ",headers:" + JSON.toJSONString(connectedHeaders));
         super.afterConnected(session, connectedHeaders);
     }
 
@@ -138,14 +160,4 @@ class ReceiveTextStompSessionHandler extends StompSessionHandlerAdapter {
     }
 }
 
-@Data
-@Accessors(chain = true)
-class Send2OneMessage implements Serializable {
-    private static final long serialVersionUID = -7428192740426066935L;
 
-    private String username;
-
-    private String msgId;
-
-    private String content;
-}
