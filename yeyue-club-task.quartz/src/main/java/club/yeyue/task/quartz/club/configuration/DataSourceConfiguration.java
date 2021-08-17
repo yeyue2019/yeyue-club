@@ -40,7 +40,7 @@ public class DataSourceConfiguration {
     }
 
     @Bean(name = "quartzDataSource")
-    @ConfigurationProperties(prefix = "spring.datasource.user.quartz")
+    @ConfigurationProperties(prefix = "spring.datasource.quartz.druid")
     public DataSource quartzDataSource() {
         DataSourceProperties properties = this.quartzDataSourceProperties();
         return properties.initializeDataSourceBuilder().type(DruidDataSource.class).build();
