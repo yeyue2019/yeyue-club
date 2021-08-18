@@ -29,6 +29,7 @@
         <sharding-jdbc.version>4.1.1</sharding-jdbc.version>
         <redisson.version>3.15.5</redisson.version>
         <fastjson.version>1.2.76</fastjson.version>
+        <xxl-job.version>2.3.0</xxl-job.version>
     </properties>
 
     <dependencies>
@@ -112,6 +113,12 @@
                 <groupId>com.alibaba</groupId>
                 <artifactId>fastjson</artifactId>
                 <version>${fastjson.version}</version>
+            </dependency>
+            <!-- 定时任务 -->
+            <dependency>
+                <groupId>com.xuxueli</groupId>
+                <artifactId>xxl-job-core</artifactId>
+                <version>${xxl-job.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

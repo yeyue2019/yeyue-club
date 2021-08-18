@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 日志级别以及优先级排序: OFF > FATAL > ERROR > WARN > INFO > DEBUG > TRACE > ALL -->
+<!-- monitorInterval: Log4j能够自动检测修改配置 文件和重新配置本身，设置间隔秒数|status: 这个用于设置log4j2自身内部的信息输出，可以不设置，当设置成trace时，你会看到log4j2内部各种详细输出-->
+<Configuration monitorInterval="5" status="WARN">
+    <!--变量配置-->
+    <Properties>
+        <!-- 格式化输出：%date表示日期，%thread表示线程名，%-5level：级别从左显示5个字符宽度 %msg：日志消息，%n是换行符-->
+        <!-- %logger{36} 表示 Logger 名字最长36个字符 -->
+        <Property name="LOG_PATTERN" value="[%d{yyyy-MM-dd HH:mm:ss,SSS}][%-5level][%t][%C.%L]:%m%n"/>
+        <!-- 定义日志存储的路径 -->
+        <Property name="FILE_PATH" value="logs"/>
+        <Property name="FILE_NAME" value="yeyue-club-task.xxl-job"/>
+    </Properties>
+    <Appenders>
+        <Console name="Console" target="SYSTEM_OUT">
+            <PatternLayout pattern="${LOG_PATTERN}"/>
+            <ThresholdFilter level="DEBUG" onMatch="ACCEPT" onMismatch="DENY"/>
+        </Console>
+        <RollingFile name="RollingFile" fileName="${FILE_PATH}/${FILE_NAME}.log"
+                     filePattern="${FILE_PATH}/$${date:yyyy-MM-dd}/${FILE_NAME}_%d{yyyy-MM-dd}_%i.log.gz">
+            <ThresholdFilter level="DEBUG" onMatch="ACCEPT" onMismatch="DENY"/>
+            <PatternLayout pattern="${LOG_PATTERN}"/>
+            <Policies>
+                <!-- 依据时间创建新的日志文件：1d 根据切割日志的最小单位确定 -->
+                <TimeBasedTriggeringPolicy interval="1" modulate="true"/>
+                <!-- 日志默认切割的最小单位 -->
+                <SizeBasedTriggeringPolicy size="100MB"/>
+            </Policies>
+            <!-- 日志默认同类型日志,同一文件夹下可以存放的数量,不设置此属性则默认为7个 -->
+            <DefaultRolloverStrategy max="10">
+                <!-- 在轮转时，删除7天之前的，命名符合规则的文件 -->
+                <Delete basePath="${FILE_PATH}" maxDepth="2">
+                    <IfFileName glob="*/*.log.gz"/>
+                    <IfLastModified age="7d"/>
+                </Delete>
+            </DefaultRolloverStrategy>
+        </RollingFile>
+    </Appenders>
+    <Loggers>
+        <root level="INFO">
+            <Appender-Ref ref="Console"/>
+            <Appender-Ref ref="RollingFile"/>
+        </root>
+    </Loggers>
+</Configuration>
