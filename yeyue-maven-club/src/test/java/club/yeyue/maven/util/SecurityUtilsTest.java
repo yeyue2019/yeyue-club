@@ -24,7 +24,7 @@ public class SecurityUtilsTest {
     private static final String RSA_PRIVATE_KEY = "MIICdQIBADANBgkqhkiG9w0BAQEFAASCAl8wggJbAgEAAoGBAIU9JKQlghEo/lj2Bjyse/5HFOAmWIJHTv+pEiS/VXHT93vteGYKgPQVFR5/a5/Goj2r8gpJWHfkSPeWze1Xi128KSl0ILgczIdJigTKBbYjrPt7xeAWVeLqTN2Zhwd5ehdv8ZvV/ETa5m9VVcfCZQS/AvAQfY1I0UEY9umkVoxbAgMBAAECgYBQ3zr1UzrudYZksvg4La2ZOsXmBABnGydNMO8tVOFlFPa7xvj0Xt3EyWMnPsoxkdx6OHrSWZCUPQE5HtThgei51S1sSJIhifXY8/alsPlc7DStGTyhZUdk+acYBGWpxfNEuzAxxmWoiruuKV/ZcQ/ZIC/WjQuyPN1bg4Jh9owwCQJBAPFT/5yC2RCL27DYPZeoU7I5JlCxnIvKF3aH5BTUNB3iino1PlXofB6W5hxolbzTNWSyD1R0w8s0q0aSatPflo8CQQCNVtszJZ2i4x+kxSa/dSOLeViTkzUh7/z/0Clr5eC2y+L5gEbUmV4LXrzL68ffz2+G8l3yCJKn93c6Yqh/c/N1AkAKNCYDpRiudWtlj88S4YAgcgAnu0rGMlZJobdIFizZ8qEuR6AKG9lbpb+3BckHAdspFcpGJOW+asyvIDO6H6MLAkAPHjVAGUvtOmIOG9BzNjJhHs+sqVhLkwH60uc7VVFd/B0BFwl8gBMhIDcNkODGPcfuJUqLMwOM19l280qWp25pAkBbuAwY5hm4N1Z5mhC+rQEHSvssRYDLDe4u4nfIc6B1WTeLs/phfBvY04sBIJoGT0LaNdmKeFxhiCMBjkxDOF6p";
     public static final String RSA_PUBLIC_KEY = "MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCFPSSkJYIRKP5Y9gY8rHv+RxTgJliCR07/qRIkv1Vx0/d77XhmCoD0FRUef2ufxqI9q/IKSVh35Ej3ls3tV4tdvCkpdCC4HMyHSYoEygW2I6z7e8XgFlXi6kzdmYcHeXoXb/Gb1fxE2uZvVVXHwmUEvwLwEH2NSNFBGPbppFaMWwIDAQAB";
 
-    private static final ExecutorService TEST_EXECUTE = new ThreadPoolExecutor(1000, 1000, 0, TimeUnit.MILLISECONDS, new LinkedBlockingQueue<>(), new ThreadFactory() {
+    private static final ExecutorService TEST_EXECUTE = new ThreadPoolExecutor(1000, 1000, 0, TimeUnit.MILLISECONDS, new SynchronousQueue<>(), new ThreadFactory() {
         private final AtomicInteger atomicInteger = new AtomicInteger(1);
 
         @Override
