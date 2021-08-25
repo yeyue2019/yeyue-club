@@ -36,6 +36,14 @@ public class ActivemqTest {
     }
 
     @Test
+    public void syncConcurrencySendTest() throws InterruptedException {
+        for (int i = 0; i < 10; i++) {
+            producer.syncConcurrencySend("测试发送并发同步消息");
+        }
+        new CountDownLatch(1).await();
+    }
+
+    @Test
     public void delaySendTest() throws InterruptedException {
         String data = "测试发送延时消息";
         producer.delaySend(data, 5 * 1000L);
@@ -61,16 +69,18 @@ public class ActivemqTest {
 
     @Test
     public void testClusterSyncSend() throws InterruptedException {
+        // 启动mock
         for (int i = 0; i < 10; i++) {
-            producer.syncCluterSend("集群测试发送同步消息");
+            producer.syncCluterSend("集群发送集群同步消息");
         }
         new CountDownLatch(1).await();
     }
 
     @Test
     public void testBroadcastSyncSend() throws InterruptedException {
+        // 启动mock
         for (int i = 0; i < 10; i++) {
-            producer.syncBroadcastSend("广播测试发送同步消息");
+            producer.syncBroadcastSend("测试发送广播同步消息");
         }
         new CountDownLatch(1).await();
     }

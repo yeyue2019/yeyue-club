@@ -2,8 +2,6 @@ package club.yeyue.activemq.club.producer;
 
 import club.yeyue.activemq.club.config.BroadcastAcitvemqConfiguration;
 import club.yeyue.activemq.club.config.ClusterActivemqConfiguration;
-import club.yeyue.activemq.club.message.ActivemqBroadcastMessage;
-import club.yeyue.activemq.club.message.ActivemqClusterMessage;
 import club.yeyue.activemq.club.message.ActivemqMessage;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.activemq.ScheduledMessage;
@@ -42,6 +40,11 @@ public class ActivemqProducer {
         template.convertAndSend(ActivemqMessage.QUEUE_NAME, message);
     }
 
+    public void syncConcurrencySend(String data) {
+        ActivemqMessage message = new ActivemqMessage().setMsgId(COUNT.incrementAndGet()).setData(data);
+        template.convertAndSend(ActivemqMessage.CONCURRENCY_QUEUE_NAME, message);
+    }
+
     public void delaySend(String data, Long delayMillseconds) {
         assert Objects.nonNull(delayMillseconds) && delayMillseconds > 0L;
         ActivemqMessage message = new ActivemqMessage().setMsgId(COUNT.incrementAndGet()).setData(data);
@@ -60,12 +63,12 @@ public class ActivemqProducer {
     }
 
     public void syncCluterSend(String data) {
-        ActivemqClusterMessage message = new ActivemqClusterMessage().setMsgId(COUNT.incrementAndGet()).setData(data);
-        clusteringTemplate.convertAndSend(ActivemqClusterMessage.QUEUE_NAME, message);
+        ActivemqMessage message = new ActivemqMessage().setMsgId(COUNT.incrementAndGet()).setData(data);
+        clusteringTemplate.convertAndSend(ActivemqMessage.CLUSTER_QUEUE_NAME, message);
     }
 
     public void syncBroadcastSend(String data) {
-        ActivemqBroadcastMessage message = new ActivemqBroadcastMessage().setMsgId(COUNT.incrementAndGet()).setData(data);
-        broadcastTemplate.convertAndSend(ActivemqBroadcastMessage.QUEUE_NAME, message);
+        ActivemqMessage message = new ActivemqMessage().setMsgId(COUNT.incrementAndGet()).setData(data);
+        broadcastTemplate.convertAndSend(ActivemqMessage.BROATCAST_QUEUE_NAME, message);
     }
 }

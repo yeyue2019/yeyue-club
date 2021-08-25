@@ -11,6 +11,8 @@ import org.springframework.jms.core.JmsTemplate;
 import javax.jms.ConnectionFactory;
 
 /**
+ * 基本消息配置
+ *
  * @author fred
  * @date 2021-08-19 15:21
  */

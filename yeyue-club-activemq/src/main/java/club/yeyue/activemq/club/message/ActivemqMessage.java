@@ -17,6 +17,9 @@ public class ActivemqMessage implements Serializable {
     private static final long serialVersionUID = -1185763799935652984L;
 
     public static final String QUEUE_NAME = "activemq.queue.demo.01";
+    public static final String CONCURRENCY_QUEUE_NAME = "activemq.queue.concurrency.01";
+    public static final String BROATCAST_QUEUE_NAME = "activemq.queue.broadcast.01";
+    public static final String CLUSTER_QUEUE_NAME = "activemq.queue.cluster.01";
 
     private Integer msgId;
 

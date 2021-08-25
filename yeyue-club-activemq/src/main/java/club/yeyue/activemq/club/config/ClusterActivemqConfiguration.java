@@ -11,6 +11,7 @@ import javax.jms.ConnectionFactory;
 
 /**
  * 集群消费配置
+ *
  * @author fred
  * @date 2021-08-19 14:36
  */
