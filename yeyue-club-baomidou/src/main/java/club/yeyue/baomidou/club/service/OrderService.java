@@ -51,7 +51,7 @@ public class OrderService {
         System.out.println(user);
     }
 
-    // 原因同2,尽量是两个事务,但是获取的数据源都死活Primary
+    // 原因同2,尽量是两个事务,但是获取的数据源都对应Primary
     public void method03() {
         // 查询订单
         self().method031();

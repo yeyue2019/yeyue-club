@@ -17,7 +17,7 @@ public class SnowflakeIdUtils {
     /**
      * 时间起始标记点，作为基准，一般取系统的最近时间（一旦确定不能变动）
      */
-    private static final long TWEPOCH = 1288834974657L;
+    private static final long TWEPOCH = 1577808000000L;
 
     /**
      * 并发控制

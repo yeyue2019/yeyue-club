@@ -3,6 +3,7 @@ package club.yeyue.maven.util;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.junit.jupiter.api.Test;
+import org.springframework.util.DigestUtils;
 
 import java.security.NoSuchAlgorithmException;
 import java.util.*;
@@ -137,6 +138,7 @@ public class SecurityUtilsTest {
         long start = System.currentTimeMillis();
         for (int i = 0; i < 1000000; i++) {
             long res = SnowflakeIdUtils.generate(5L, 5L);
+            System.out.println(res);
             if (!set.add(res)) {
                 System.err.println("出现重复的流水号:" + res);
                 break;
@@ -168,6 +170,4 @@ public class SecurityUtilsTest {
         }
         System.out.println(set.size());
     }
-
-
 }
