@@ -177,7 +177,7 @@ public class SecurityUtils {
     }
 
     /**
-     * 获取密钥（常用AES）
+     * 获取密钥
      *
      * @param algorithm 生成算法
      * @param keySize   密钥长度
