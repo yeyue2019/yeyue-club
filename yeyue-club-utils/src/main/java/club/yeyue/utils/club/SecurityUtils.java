@@ -20,6 +20,8 @@ import java.security.spec.ECGenParameterSpec;
 import java.security.spec.PKCS8EncodedKeySpec;
 import java.security.spec.X509EncodedKeySpec;
 import java.util.Base64;
+import java.util.UUID;
+import java.util.concurrent.ThreadLocalRandom;
 
 /**
  * 加解密工具类
@@ -35,6 +37,9 @@ public class SecurityUtils {
     public static final String AES_ALGORITHM = "AES";
     public static final String EC_ALGORITHM = "EC";
     public static final String SM4_ALGORITHM = "SM4";
+    public static final String SM3_ALGORITHM = "SM3";
+    public static final String BC_PROVIDER = "BC";
+    public static final String SM2_SPEC = "sm2p256v1";
 
     /**
      * 随机字符串
@@ -153,6 +158,18 @@ public class SecurityUtils {
     }
 
     /**
+     * uuid
+     *
+     * @return 结果
+     */
+    public static String uuid() {
+        ThreadLocalRandom random = ThreadLocalRandom.current();
+        UUID uuid = new UUID(random.nextInt(), random.nextInt());
+        return uuid.toString();
+    }
+
+
+    /**
      * 获取密钥对
      *
      * @param algorithm 生成算法
@@ -165,7 +182,7 @@ public class SecurityUtils {
         switch (algorithm) {
             case EC_ALGORITHM:
                 keyPairGenerator = KeyPairGenerator.getInstance(EC_ALGORITHM, provider);
-                keyPairGenerator.initialize(new ECGenParameterSpec("sm2p256v1"), new SecureRandom());
+                keyPairGenerator.initialize(new ECGenParameterSpec(SM2_SPEC), new SecureRandom());
                 return keyPairGenerator.generateKeyPair();
             case RSA_ALGORITHM:
                 keyPairGenerator = KeyPairGenerator.getInstance(RSA_ALGORITHM);
@@ -356,7 +373,7 @@ public class SecurityUtils {
     }
 
     private static byte[] sm3(String source) {
-        byte[] target = StringUtils.getBytes(source, StandardCharsets.UTF_8);
+        byte[] target = source.getBytes(StandardCharsets.UTF_8);
         SM3Digest sm3Digest = new SM3Digest();
         sm3Digest.update(target, 0, target.length);
         byte[] hash = new byte[sm3Digest.getDigestSize()];
@@ -365,10 +382,10 @@ public class SecurityUtils {
     }
 
     private static byte[] hmacSm3(String key, String source) {
-        byte[] target = StringUtils.getBytes(source, StandardCharsets.UTF_8);
+        byte[] target = source.getBytes(StandardCharsets.UTF_8);
         SM3Digest digest = new SM3Digest();
         HMac mac = new HMac(digest);
-        mac.init(new KeyParameter(StringUtils.getBytes(key, StandardCharsets.UTF_8)));
+        mac.init(new KeyParameter(key.getBytes(StandardCharsets.UTF_8)));
         mac.update(target, 0, target.length);
         byte[] hash = new byte[mac.getMacSize()];
         mac.doFinal(hash, 0);
@@ -376,7 +393,7 @@ public class SecurityUtils {
     }
 
     private static byte[] sm3bc(String source) throws Exception {
-        MessageDigest messageDigest = MessageDigest.getInstance("SM3", "BC");
-        return messageDigest.digest(StringUtils.getBytes(source, StandardCharsets.UTF_8));
+        MessageDigest messageDigest = MessageDigest.getInstance(SM3_ALGORITHM, BC_PROVIDER);
+        return messageDigest.digest(source.getBytes(StandardCharsets.UTF_8));
     }
 }
